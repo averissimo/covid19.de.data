@@ -1,0 +1,52 @@
+---
+title: "Download data"
+output: html_document
+params:
+  start.date: !r anytime::anydate('2020-02-01')
+  end.date: !r anytime::anydate(date())
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(rjson)
+library(anytime)
+library(glue)
+library(DT)
+library(futile.logger)
+
+flog.threshold('debug')
+flog.layout(layout.format('~m'))
+
+Sys.setlocale('LC_TIME', 'en_GB.UTF-8')
+
+devtools::load_all()
+```
+
+```{r, eval=FALSE}
+rki.covid19.tmp <- tibble()
+for (state.ix in 1:16) {
+  rki.covid19.tmp <- rki.covid19.tmp %>%
+    bind_rows(download.state(state.ix))
+}
+
+rki.covid19 <- rki.covid19.tmp
+usethis::use_data(rki.covid19, overwrite = TRUE)
+```
+
+
+```{r}
+data('rki.covid19')
+rki.covid19 <- rki.covid19 %>% mutate(registration.date = anytime(registration.date / 1000))
+
+rki.covid19 %>% 
+  filter(id.state == 1) %>%
+  sort(desc(date.status))
+```
+
+
+
+```{r}
+
+```
+
