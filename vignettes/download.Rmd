@@ -7,8 +7,25 @@ output:
     dev: svg
 ---
 
+> COVID-19 District level data from Robert Koch Institute in Germany
+
+The data is available inside the `data/` folder in `.csv` format. It can also be used as an R package by installing this repository directly.
+
+`BiocManager::install_github('averissimo/covid19-de_rki-data')` or `devtools::install_github('averissimo/covid19-de_rki-data')`
+
+To retrieve the lastest yourself use the `rki.de.district.data::update.dataset()` function inside the R package. Note that, as of now, the data is updated by the Robert Koch Institute once a day.
+
+It is downloaded from ARCGIS REST API using the [RKI_COVID19](https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_COVID19/FeatureServer/0/query?where=Meldedatum+%3E+(CURRENT_TIMESTAMP+-+3)&objectIds=&time=&resultType=none&outFields=*&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnDistinctValues=false&cacheHint=false&orderByFields=Meldedatum&outStatistics=&having=&resultOffset=&resultRecordCount=&sqlFormat=none&f=html&token=) feature server.
+
 ```{r, eval=FALSE, include=FALSE}
-rmarkdown::render('download.Rmd', output_format = rmarkdown::github_document(), output_file = '../README.md', output_dir = '..')
+rmarkdown::render('download.Rmd', output_format = rmarkdown::github_document(), output_file = 'README.md')
+unlink('../README.md')
+unlink('../README_files', recursive = TRUE, force = TRUE)
+file.copy('README.md', '../README.md')
+file.copy('README_files', '..', recursive = TRUE, overwrite = TRUE)
+unlink('README.md')
+unlink('README.html')
+unlink('README_files', recursive = TRUE, force = TRUE)
 ```
 
 
