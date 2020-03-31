@@ -38,58 +38,58 @@ once a day.
 
 #### New Cases in states
 
-![](index_files/figure-gfm/unnamed-chunk-8-1.svg)<!-- -->
+![](index_files/figure-gfm/unnamed-chunk-7-1.svg)<!-- -->
 
 #### New Deaths in states
 
-![](index_files/figure-gfm/unnamed-chunk-9-1.svg)<!-- -->
+![](index_files/figure-gfm/unnamed-chunk-8-1.svg)<!-- -->
 
 #### New cases in districts
 
-![](index_files/figure-gfm/unnamed-chunk-10-1.svg)<!-- -->
+![](index_files/figure-gfm/unnamed-chunk-9-1.svg)<!-- -->
 
 #### New deaths in districts
 
-![](index_files/figure-gfm/unnamed-chunk-11-1.svg)<!-- -->
+![](index_files/figure-gfm/unnamed-chunk-10-1.svg)<!-- -->
 
 ### Total cases in last 12 days *in most affected states/districts*
 
 #### Total cases in states
 
-![](index_files/figure-gfm/unnamed-chunk-12-1.svg)<!-- -->
+![](index_files/figure-gfm/unnamed-chunk-11-1.svg)<!-- -->
 
 #### Total deaths in states
 
 Showing only 6 states most affected
 
-![](index_files/figure-gfm/unnamed-chunk-13-1.svg)<!-- -->
+![](index_files/figure-gfm/unnamed-chunk-12-1.svg)<!-- -->
 
 #### Total cases in districs
 
 Showing only 6 districs most affected
 
-![](index_files/figure-gfm/unnamed-chunk-14-1.svg)<!-- -->
+![](index_files/figure-gfm/unnamed-chunk-13-1.svg)<!-- -->
 
 #### Total deaths in districs
 
 Showing only 6 districs most affected
 
-![](index_files/figure-gfm/unnamed-chunk-15-1.svg)<!-- -->
+![](index_files/figure-gfm/unnamed-chunk-14-1.svg)<!-- -->
 
 ### Cases by age groups
 
 #### Cases in states
 
-![](index_files/figure-gfm/unnamed-chunk-16-1.svg)<!-- -->
+![](index_files/figure-gfm/unnamed-chunk-15-1.svg)<!-- -->
 
 #### Deaths in states
 
-![](index_files/figure-gfm/unnamed-chunk-17-1.svg)<!-- -->
+![](index_files/figure-gfm/unnamed-chunk-16-1.svg)<!-- -->
 
 #### Cases in districts
 
-![](index_files/figure-gfm/unnamed-chunk-18-1.svg)<!-- -->
+![](index_files/figure-gfm/unnamed-chunk-17-1.svg)<!-- -->
 
 #### Deaths in districts
 
-![](index_files/figure-gfm/unnamed-chunk-19-1.svg)<!-- -->
+![](index_files/figure-gfm/unnamed-chunk-18-1.svg)<!-- -->
