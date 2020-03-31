@@ -2,7 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
-*_files
+vignettes/*_files
 vignettes/*.html
 vignettes/*.md
 script.sh
