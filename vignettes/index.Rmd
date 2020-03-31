@@ -2,6 +2,7 @@
 title: "Germany data on district level"
 output: 
   github_document:
+    dev: svg
   html_document:
     toc: true
     dev: svg
@@ -16,6 +17,7 @@ file.copy('README_files', '..', recursive = TRUE, overwrite = TRUE)
 unlink('README.md')
 unlink('README.html')
 unlink('README_files', recursive = TRUE, force = TRUE)
+rmarkdown::render_site()
 ```
 
 
