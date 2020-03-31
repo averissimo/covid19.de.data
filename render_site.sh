@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PWD=/ssd_home/averissimo/work/rpackages/covid19-de_rki.data/vignettes
+PWD=/ssd_home/averissimo/work/rpackages/covid19-de_rki-data/vignettes
 
 rm $PWD/../README.md
 rm $PWD/../README_files
