@@ -1,3 +1,28 @@
+#' Add factors to rki data
+#'
+#' @param dat rki.de.data
+#'
+#' @return data frame with factors as columns for age.group, district, id.district, state, id.state
+#' @export
+#'
+#' @examples
+add.factors <- function(dat) {
+  my.levels <- c('unbekannt', unique(dat$age.group) %>% sort) %>% unique
+  my.labels <- paste('Age', my.levels %>% gsub('A', '', .) %>% gsub('unbekannt', '??-??', .))
+
+  state.levels <- group_by(dat, id.state, state) %>% summarize(rank = sum(cases)) %>% arrange(-rank)
+  district.levels <- group_by(dat, id.district, district) %>% summarize(rank = sum(cases)) %>% arrange(-rank)
+
+  dat %>%
+    mutate(
+         age.group   = factor(age.group, levels = my.levels, labels = my.labels),
+         district    = factor(district, levels = district.levels %>% pull(district) %>% unique()),
+         id.district = factor(id.district, levels = district.levels %>% pull(id.district) %>% unique()),
+         state       = factor(state, levels = state.levels %>% pull(state) %>% unique()),
+         id.state    = factor(id.state, levels = state.levels %>% pull(id.state) %>% unique())) %>%
+    return()
+}
+
 #' Update dataset
 #'
 #' @return nothing
@@ -13,27 +38,14 @@ update.dataset <- function() {
 
   rki.covid19.tmp <- rki.covid19.tmp %>%
     arrange(desc(date)) %>%
-    mutate(date = anydate(format(date, '%Y/%m/%d'))) %>% {
-      my.levels <- c('unbekannt', unique(.$age.group) %>% sort) %>% unique
-      my.labels <- my.levels %>% gsub('A', '', .) %>% gsub('unbekannt', '??-??', .)
+    mutate(date = anydate(format(date, '%Y/%m/%d')))
 
-      state.levels <- group_by(., id.state, state) %>% summarize(rank = sum(cases)) %>% arrange(-rank)
-      district.levels <- group_by(., id.district, district) %>% summarize(rank = sum(cases)) %>% arrange(-rank)
-
-      mutate(.,
-             age.group   = factor(age.group, levels = my.levels, labels = my.labels),
-             district    = factor(district, levels = district.levels %>% pull(district) %>% unique()),
-             id.district = factor(id.district, levels = district.levels %>% pull(id.district) %>% unique()),
-             state       = factor(state, levels = state.levels %>% pull(state) %>% unique()),
-             id.state    = factor(id.state, levels = state.levels %>% pull(id.state) %>% unique()))
-    }
-
-  if (!all(rki.covid19.tmp$object.id %in% rki.covid19$object.id)) {
-    usethis::use_data(rki.covid19, overwrite = TRUE)
-    write_csv2(rki.covid19, path = '../data/rki.covid19.csv')
+  if (!exists('rki.covid19') || (!all(rki.covid19.tmp$object.id %in% rki.covid19$object.id))) {
+    flog.info('Data returned from this function was updated.')
   } else {
     flog.info('Data is up to date, nothing to do...')
   }
+  return(rki.covid19.tmp)
 }
 
 #' Write range for SQL query in ARCGIS
@@ -118,7 +130,7 @@ identify.ranges <- function(dat, key.fun = range.write) {
 #' @examples
 #' download.state(1)
 #' download.state(2)
-download.state <- function(existing.data = c(), max.record = 500) {
+download.state <- function(existing.data = tibble(), max.record = 500) {
   dta     <- tibble()
   offset  <- 0
   stop.me <- FALSE
@@ -127,17 +139,18 @@ download.state <- function(existing.data = c(), max.record = 500) {
 
   if (nrow(dta.tmp) > 0) {
     dta <- dta.tmp
+
+    exclude.ids <- existing.data %>%
+      dplyr::pull(object.id) %>%
+      unique %>%
+      sort %>%
+      identify.ranges %>%
+      paste(collapse = ' OR ') %>%
+      paste0('NOT (', ., ')')
+  } else {
+    exclude.ids <- NULL
   }
   dta.tmp <- NULL
-
-  exclude.ids <- existing.data %>%
-    dplyr::pull(object.id) %>%
-    unique %>%
-    sort %>%
-    identify.ranges %>%
-    paste(collapse = ' OR ') %>%
-    paste0('NOT (', ., ')')
-
 
   # Download chunks of 500
   while (!stop.me) {
@@ -223,10 +236,11 @@ download.raw <- function(offset = 0, max.record = 1000, exclude.ids = NULL) {
     stop('Exceeded transfer limit!!')
   }
 
-  '  {length(json_data$feature)} lines were downloaded' %>%
-    glue::glue() %>%
-    futile.logger::flog.debug()
-
+  if (length(json_data$feature) > 0) {
+    '...{length(json_data$feature)} lines were downloaded' %>%
+      glue::glue() %>%
+      futile.logger::flog.info()
+  }
 
   # build results
   dta <- tibble()
