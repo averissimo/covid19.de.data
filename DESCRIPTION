@@ -17,5 +17,8 @@ Imports: glue,
   DT,
   anytime,
   futile.logger,
-  httr
+  httr,
+  ggrepel,
+  ggthemes,
+  viridis
 RoxygenNote: 7.1.0

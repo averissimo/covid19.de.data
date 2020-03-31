@@ -4,7 +4,7 @@
 \alias{download.state}
 \title{Download state specific data}
 \usage{
-download.state(existing.data = c(), max.record = 500)
+download.state(existing.data = tibble(), max.record = 500)
 }
 \arguments{
 \item{max.record}{maximum number of records to download on each HTTP GET call}

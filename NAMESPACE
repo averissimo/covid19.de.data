@@ -3,6 +3,7 @@
 S3method(identify,ranges)
 S3method(range,write)
 S3method(update,dataset)
+export(add.factors)
 export(download.state)
 import(httr)
 importFrom(dplyr,"%>%")
