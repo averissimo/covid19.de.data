@@ -12,14 +12,15 @@ age.plot.state <- function(dat, var, filter.state, title) {
     geom_bar(stat = "identity", width = .6) +   # draw the bars
     scale_y_continuous(labels = abs) +
     coord_flip() +  # Flip axes
-    theme_clean() +  # Tufte theme from ggfortify
+    theme_minimal() +  # Tufte theme from ggfortify
     theme(plot.title = element_text(hjust = .5),
           axis.ticks = element_blank()) +   # Centre plot title
     scale_fill_viridis_d('Gender', end = .7) + # Color palette
     theme(legend.position = c(0.5,.5)) +
     labs(title= title,
          x = 'Age Groups',
-         y = title) +
+         y = title,
+         subtitle = 'Showing only 8 most afected states') +
     facet_wrap(~state, ncol = 2)
 }
 
@@ -37,13 +38,14 @@ age.plot.district <- function(dat, var, filter.district, title) {
     geom_bar(stat = "identity", width = .6) +   # draw the bars
     scale_y_continuous(labels = abs) +
     coord_flip() +  # Flip axes
-    theme_clean() +  # Tufte theme from ggfortify
+    theme_minimal() +  # Tufte theme from ggfortify
     theme(plot.title = element_text(hjust = .5),
           axis.ticks = element_blank()) +   # Centre plot title
     scale_fill_viridis_d('Gender', end = .7) + # Color palette
     theme(legend.position = c(0.5,.5)) +
     labs(title= title,
          x = 'Age Groups',
-         y = title) +
+         y = title,
+         subtitle = 'Showing only 8 most afected districts') +
     facet_wrap(~district, ncol = 2)
 }

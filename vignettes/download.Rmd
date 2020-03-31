@@ -46,7 +46,7 @@ unlink('README_files', recursive = TRUE, force = TRUE)
 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, collapse = TRUE)
+knitr::opts_chunk$set(echo = FALSE, collapse = TRUE, fig.height=8, fig.width=10)
 library(tidyverse)
 library(rjson)
 library(anytime)
@@ -136,14 +136,15 @@ my.rki %>%
     scale_fill_viridis_d(end = .8) + 
     theme_minimal() +
     theme(legend.position = 'none') +
-    labs(title = 'New deaths per day in last 12 days', y = 'Deaths', x = 'Day')
+    labs(title = 'New deaths per day in last 12 days', y = 'Deaths', x = 'Day',
+         subtitle = 'Showing only 6 most affected states')
 ```
 
 #### New cases in districts
 
 ```{r}
 my.rki %>% 
-  filter(district %in% (top.districts %>% head(5))) %>%
+  filter(district %in% (top.districts %>% head(7))) %>%
   filter(anydate(base::date()) - date <= 12) %>% 
   arrange(desc(date)) %>% 
   group_by(district, date) %>%
@@ -159,14 +160,15 @@ my.rki %>%
     scale_fill_viridis_d(end = .9) + 
     theme_minimal() +
     theme(legend.position = 'none') +
-    labs(title = 'New cases per day in last 12 days', y = 'Cases', x = 'Day')
+    labs(title = 'New cases per day in last 12 days', y = 'Cases', x = 'Day',
+         subtitle = 'Showing only 7 most affected states')
 ```
 
 #### New deaths in districts
 
 ```{r}
 my.rki %>% 
-  filter(district %in% (top.districts %>% head(5))) %>%
+  filter(district %in% (top.districts %>% head(7))) %>%
   filter(anydate(base::date()) - date <= 12) %>% 
   arrange(desc(date)) %>% 
   group_by(district, date) %>%
@@ -182,18 +184,17 @@ my.rki %>%
     scale_fill_viridis_d(end = .9) + 
     theme_minimal() +
     theme(legend.position = 'none') +
-    labs(title = 'New cases per day in last 12 days', y = 'Cases', x = 'Day')
+    labs(title = 'New cases per day in last 12 days', y = 'Cases', x = 'Day',
+         subtitle = 'Showing only 7 most affected districts')
 ```
 
 ### Total cases in last 12 days in most affected states/districts {.tabset .tabset-fade .tabset-pills}
 
 #### Total cases in states
 
-Showing only 6 states most affected
-
 ```{r}
 my.rki %>% 
-  filter(state %in% (top.states %>% head(6))) %>%
+  filter(state %in% (top.states %>% head(7))) %>%
   filter(anydate(base::date()) - date <= 12) %>% 
   arrange(date) %>% 
   group_by(state, date) %>%
@@ -208,7 +209,9 @@ my.rki %>%
     scale_color_viridis(discrete = TRUE, end = .5) +
     scale_fill_viridis(discrete = TRUE, end = .5) + 
     theme_minimal() +
-    theme(legend.position = 'none')
+    theme(legend.position = 'none') +
+    labs(title = 'Total cases per day in last 12 days', y = 'Total Cases', x = 'Day',
+         subtitle = 'Showing only 7 most affected states')
 ```
 
 #### Total deaths in states
@@ -217,7 +220,7 @@ Showing only 6 states most affected
 
 ```{r}
 my.rki %>% 
-  filter(state %in% (top.states %>% head(6))) %>%
+  filter(state %in% (top.states %>% head(7))) %>%
   filter(anydate(base::date()) - date <= 12) %>% 
   arrange(date) %>% 
   group_by(state, date) %>%
@@ -232,7 +235,9 @@ my.rki %>%
     scale_color_viridis(discrete = TRUE, end = .5) +
     scale_fill_viridis(discrete = TRUE, end = .5) + 
     theme_minimal() +
-    theme(legend.position = 'none')
+    theme(legend.position = 'none') +
+    labs(title = 'Total deaths per day in last 12 days', y = 'Total Deaths', x = 'Day',
+         subtitle = 'Showing only 7 most affected states')
 ```
 
 #### Total cases in districs
@@ -241,7 +246,7 @@ Showing only 6 districs most affected
 
 ```{r}
 my.rki %>% 
-  filter(district %in% (top.districts %>% head(6))) %>%
+  filter(district %in% (top.districts %>% head(7))) %>%
   filter(anydate(base::date()) - date <= 12) %>% 
   arrange(date) %>% 
   group_by(district, date) %>%
@@ -256,7 +261,9 @@ my.rki %>%
     scale_color_viridis(discrete = TRUE, end = .5) +
     scale_fill_viridis(discrete = TRUE, end = .5) + 
     theme_minimal() +
-    theme(legend.position = 'none')
+    theme(legend.position = 'none') +
+    labs(title = 'Total cases per day in last 12 days', y = 'Total Cases', x = 'Day',
+         subtitle = 'Showing only 7 most affected districts')
 ```
 
 #### Total deaths in districs
@@ -265,7 +272,7 @@ Showing only 6 districs most affected
 
 ```{r}
 my.rki %>% 
-  filter(district %in% (top.districts %>% head(6))) %>%
+  filter(district %in% (top.districts %>% head(7))) %>%
   filter(anydate(base::date()) - date <= 12) %>% 
   arrange(date) %>% 
   group_by(district, date) %>%
@@ -280,7 +287,9 @@ my.rki %>%
     scale_color_viridis(discrete = TRUE, end = .5) +
     scale_fill_viridis(discrete = TRUE, end = .5) + 
     theme_minimal() +
-    theme(legend.position = 'none')
+    theme(legend.position = 'none') +
+    labs(title = 'Total deaths per day in last 12 days', y = 'Total Deaths', x = 'Day',
+         subtitle = 'Showing only 7 most affected districts')
 ```
 
 ### Cases by age groups {.tabset .tabset-fade .tabset-pills}
@@ -288,19 +297,19 @@ my.rki %>%
 #### Cases in states
 
 ```{r}
-age.plot.state(my.rki, 'cases', top.states %>% head(6), 'Number of Cases')
+age.plot.state(my.rki, 'cases', top.states %>% head(8), 'Cases in States')
 ```
 
 #### Deaths in states
 
 ```{r}
-age.plot.state(my.rki, 'deaths', top.states %>% head(6), 'Number of Deaths')
+age.plot.state(my.rki, 'deaths', top.states %>% head(8), 'Deaths in States')
 ```
 
 #### Cases in districts
 
 ```{r}
-age.plot.district(my.rki, 'cases', top.districts %>% head(6), 'Number of Cases')
+age.plot.district(my.rki, 'cases', top.districts %>% head(8), 'Number of Cases')
 ```
 
 #### Deaths in districts

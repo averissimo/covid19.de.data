@@ -56,8 +56,6 @@ once a day.
 
 #### Total cases in states
 
-Showing only 6 states most affected
-
 ![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 #### Total deaths in states
