@@ -1,3 +1,41 @@
+#' Update dataset
+#'
+#' @return nothing
+#' @export
+#'
+#' @examples
+#' update.dataset()
+update.dataset <- function() {
+  data("rki.covid19")
+
+  rki.covid19.tmp <- tibble()
+  rki.covid19.tmp <- download.state(rki.covid19)
+
+  rki.covid19.tmp <- rki.covid19.tmp %>%
+    arrange(desc(date)) %>%
+    mutate(date = anydate(format(date, '%Y/%m/%d'))) %>% {
+      my.levels <- c('unbekannt', unique(.$age.group) %>% sort) %>% unique
+      my.labels <- my.levels %>% gsub('A', '', .) %>% gsub('unbekannt', '??-??', .)
+
+      state.levels <- group_by(., id.state, state) %>% summarize(rank = sum(cases)) %>% arrange(-rank)
+      district.levels <- group_by(., id.district, district) %>% summarize(rank = sum(cases)) %>% arrange(-rank)
+
+      mutate(.,
+             age.group   = factor(age.group, levels = my.levels, labels = my.labels),
+             district    = factor(district, levels = district.levels %>% pull(district) %>% unique()),
+             id.district = factor(id.district, levels = district.levels %>% pull(id.district) %>% unique()),
+             state       = factor(state, levels = state.levels %>% pull(state) %>% unique()),
+             id.state    = factor(id.state, levels = state.levels %>% pull(id.state) %>% unique()))
+    }
+
+  if (!all(rki.covid19.tmp$object.id %in% rki.covid19$object.id)) {
+    usethis::use_data(rki.covid19, overwrite = TRUE)
+    write_csv2(rki.covid19, path = '../data/rki.covid19.csv')
+  } else {
+    flog.info('Data is up to date, nothing to do...')
+  }
+}
+
 #' Write range for SQL query in ARCGIS
 #'
 #' @param a start of range of ObjectId
@@ -80,40 +118,33 @@ identify.ranges <- function(dat, key.fun = range.write) {
 #' @examples
 #' download.state(1)
 #' download.state(2)
-download.state <- function(id.state, max.record = 500, force.all = FALSE) {
+download.state <- function(existing.data = c(), max.record = 500) {
   dta     <- tibble()
   offset  <- 0
   stop.me <- FALSE
 
-  if (exists('rki.district.data::rki.covid19')) {
-      dta.tmp <- rki.covid19 %>% dplyr::filter(id.state == id.state)
+  dta.tmp <- existing.data
 
-      if (nrow(dta.tmp) > 0) {
-        dta <- dta.tmp
-      }
-      dta.tmp <- NULL
-
-      exclude.ids <- if (!force.all) {
-        exclude.ids <- rki.district.data::rki.covid19 %>%
-          dplyr::pull(object.id) %>%
-          unique %>%
-          sort %>%
-          identify.ranges %>%
-          paste(collapse = ' OR ') %>%
-          paste0('NOT (', ., ')')
-      } else {
-        NULL
-      }
-  } else {
-    exclude.ids = c()
+  if (nrow(dta.tmp) > 0) {
+    dta <- dta.tmp
   }
+  dta.tmp <- NULL
+
+  exclude.ids <- existing.data %>%
+    dplyr::pull(object.id) %>%
+    unique %>%
+    sort %>%
+    identify.ranges %>%
+    paste(collapse = ' OR ') %>%
+    paste0('NOT (', ., ')')
+
 
   # Download chunks of 500
   while (!stop.me) {
-    dta.tmp <- download.raw(id.state, offset = offset, max.record = max.record, exclude.ids = exclude.ids)
+    dta.tmp <- download.raw(offset = offset, max.record = max.record, exclude.ids = exclude.ids)
 
     if (nrow(dta.tmp) == 0) {
-      futile.logger::flog.debug('No rows returned for \'id.state\' == %d (offset = %d, max.record = %d)\n  Stopping for this state...', id.state, offset, max.record)
+      futile.logger::flog.debug('No rows returned (offset = %d, max.record = %d)\n  Stopping...', offset, max.record)
       break
     }
     # else
@@ -141,13 +172,12 @@ download.state <- function(id.state, max.record = 500, force.all = FALSE) {
 #' @param exclude.ids exclude ids from data
 #'
 #' @return data frame with data. Column names are translated from German
-download.raw <- function(id.state, offset = 0, max.record = 1000, exclude.ids = NULL) {
+download.raw <- function(offset = 0, max.record = 1000, exclude.ids = NULL) {
   # build query
   if (is.null(exclude.ids)) {
-    query <- 'IdBundesland = {id.state}' %>%
-      glue::glue()
+    query <- 'IdBundesland > 0'
   } else {
-    query <- 'IdBundesland = {id.state} AND {exclude.ids}' %>%
+    query <- '{exclude.ids}' %>%
       glue::glue()
   }
 
@@ -211,17 +241,17 @@ download.raw <- function(id.state, offset = 0, max.record = 1000, exclude.ids = 
 
   dta %>%
     dplyr::mutate(Meldedatum = anytime::anytime(Meldedatum / 1000)) %>%
-    dplyr::select(id.state = IdBundesland,
-           state = Bundesland,
-           id.district = IdLandkreis,
-           district = Landkreis,
-           gender = Geschlecht,
-           cumul.cases = AnzahlFall,
-           cumul.deaths = AnzahlTodesfall,
-           object.id = ObjectId,
-           registration.date = Meldedatum,
-           # date.status = Datenstand, # removed as it will only show a meaningless date
-           cases = NeuerFall,
-           deaths = NeuerTodesfall) %>%
+    dplyr::select(date = Meldedatum,
+                  # date.status = Datenstand, # removed as it will only show a meaningless date
+                  id.state = IdBundesland,
+                  state = Bundesland,
+                  id.district = IdLandkreis,
+                  district = Landkreis,
+                  age.group = Altersgruppe,
+                  gender = Geschlecht,
+                  cases = AnzahlFall,
+                  deaths = AnzahlTodesfall,
+                  object.id = ObjectId,
+                  ) %>%
     return()
 }

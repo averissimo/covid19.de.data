@@ -1,8 +1,8 @@
-Package: rki.district.data
+Package: rki.de.district.data
 Type: Package
-Title: What the Package Does (Title Case)
+Title: COVID-19 Germany data by state/district
 Version: 0.1.0
-Author: Who wrote it
+Author: André Veríssimo
 Maintainer: André Veríssimo <andre.verissimo@tecnico.ulisboa.pt>
 Description: Downloads Germany district data from the Robert Koch Institute
     It shows number by district and includes age groups and gender.
@@ -18,3 +18,4 @@ Imports: glue,
   anytime,
   futile.logger,
   httr
+RoxygenNote: 7.1.0

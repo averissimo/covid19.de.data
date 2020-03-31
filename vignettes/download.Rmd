@@ -1,21 +1,24 @@
 ---
-title: "Download data"
-output: html_document
-params:
-  start.date: !r anytime::anydate('2020-02-01')
-  end.date: !r anytime::anydate(date())
+title: "Update data"
+output: 
+  html_document:
+    toc: true
+    dev: svg
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE, collapse = TRUE)
 library(tidyverse)
 library(rjson)
 library(anytime)
 library(glue)
 library(DT)
 library(futile.logger)
+library(viridis)
+library(ggthemes)
+library(ggrepel)
 
-flog.threshold('debug')
+flog.threshold('info')
 flog.layout(layout.format('~m'))
 
 Sys.setlocale('LC_TIME', 'en_GB.UTF-8')
@@ -23,30 +26,182 @@ Sys.setlocale('LC_TIME', 'en_GB.UTF-8')
 devtools::load_all()
 ```
 
-```{r, eval=FALSE}
-rki.covid19.tmp <- tibble()
-for (state.ix in 1:16) {
-  rki.covid19.tmp <- rki.covid19.tmp %>%
-    bind_rows(download.state(state.ix))
-}
+## Update data in package
 
-rki.covid19 <- rki.covid19.tmp
-usethis::use_data(rki.covid19, overwrite = TRUE)
+```{r, echo=TRUE}
+update.dataset()
 ```
 
+```{r, include=FALSE}
+top.states <- my.rki %>% group_by(state) %>% summarise(cases = sum(deaths) * sum(cases)) %>% arrange(-cases) %>% pull(state)
+top.districts <- my.rki %>% group_by(district) %>% summarise(cases = sum(deaths) * sum(cases)) %>% arrange(-cases) %>% pull(district)
+```
+
+```{r, include=FALSE}
+my.rki <- rki.covid19 %>%
+  group_by(id.state, state, id.district, district, gender, age.group) %>%
+  arrange(date) %>%
+  mutate(cumul.cases = cumsum(cases),
+         cumul.deaths = cumsum(deaths))
+```
+
+## New cases/deaths per day {.tabset .tabset-fade .tabset-pills}
+
+### New Cases in 6 states most affected
 
 ```{r}
-data('rki.covid19')
-rki.covid19 <- rki.covid19 %>% mutate(registration.date = anytime(registration.date / 1000))
-
-rki.covid19 %>% 
-  filter(id.state == 1) %>%
-  sort(desc(date.status))
+my.rki %>% 
+  filter(state %in% (top.states %>% head(6))) %>%
+  filter(anydate(base::date()) - date <= 12) %>% 
+  arrange(desc(date)) %>% 
+  group_by(state, date) %>%
+  summarize(cases = sum(cases)) %>%
+  arrange(date) %>% 
+  mutate(label = if_else(date == last(date), paste0(state, ' (', format(cases, big.mark = ','), ')'),'')) %>% 
+  ggplot(aes(x = date, y = cases, color = state)) + 
+    geom_line(size = 1.2) + 
+    geom_point(size = 2) + 
+    geom_label_repel(aes(label = label, fill = state), 
+                     na.rm = TRUE, alpha = .8, color = 'white', size = 3, segment.alpha = .4, segment.colour = 'black', force = 5) +
+    scale_color_viridis_d(end = .8) + 
+    scale_fill_viridis_d(end = .8) + 
+    theme_minimal() +
+    theme(legend.position = 'none') +
+    labs(title = 'New cases per day in last 12 days', y = 'Cases', x = 'Day')
 ```
 
-
+### New Deaths 6 states most affected
 
 ```{r}
-
+my.rki %>% 
+  filter(state %in% (top.states %>% head(6))) %>%
+  filter(anydate(base::date()) - date <= 12) %>% 
+  arrange(desc(date)) %>% 
+  group_by(state, date) %>%
+  summarize(cases = sum(deaths)) %>%
+  arrange(date) %>% 
+  mutate(label = if_else(date == last(date), paste0(state, ' (', format(cases, big.mark = ','), ')'),'')) %>% 
+  ggplot(aes(x = date, y = cases, color = state)) + 
+    geom_line(size = 1.2) + 
+    geom_point(size = 2) + 
+    geom_label_repel(aes(label = label, fill = state), 
+                     na.rm = TRUE, alpha = .8, color = 'white', size = 3, segment.alpha = .4, segment.colour = 'black', force = 5) +
+    scale_color_viridis_d(end = .8) + 
+    scale_fill_viridis_d(end = .8) + 
+    theme_minimal() +
+    theme(legend.position = 'none') +
+    labs(title = 'New deaths per day in last 12 days', y = 'Deaths', x = 'Day')
 ```
+
+### New cases in 6 districts most affected
+
+```{r}
+my.rki %>% 
+  filter(district %in% (top.districts %>% head(5))) %>%
+  filter(anydate(base::date()) - date <= 12) %>% 
+  arrange(desc(date)) %>% 
+  group_by(district, date) %>%
+  summarize(cases = sum(cases)) %>%
+  arrange(date) %>% 
+  mutate(label = if_else(date == last(date), paste0(district, ' (', format(cases, big.mark = ','), ')'),'')) %>% 
+  ggplot(aes(x = date, y = cases, color = district)) + 
+    geom_line(size = 1.2) + 
+    geom_point(size = 2) + 
+    geom_label_repel(aes(label = label, fill = district), 
+                     na.rm = TRUE, alpha = .8, color = 'white', size = 3, segment.alpha = .4, segment.colour = 'black', force = 4) +
+    scale_color_viridis_d(end = .9) + 
+    scale_fill_viridis_d(end = .9) + 
+    theme_minimal() +
+    theme(legend.position = 'none') +
+    labs(title = 'New cases per day in last 12 days', y = 'Cases', x = 'Day')
+```
+
+### New deaths in 6 districts most affected
+
+```{r}
+my.rki %>% 
+  filter(district %in% (top.districts %>% head(5))) %>%
+  filter(anydate(base::date()) - date <= 12) %>% 
+  arrange(desc(date)) %>% 
+  group_by(district, date) %>%
+  summarize(cases = sum(deaths)) %>%
+  arrange(date) %>% 
+  mutate(label = if_else(date == last(date), paste0(district, ' (', format(cases, big.mark = ','), ')'),'')) %>% 
+  ggplot(aes(x = date, y = cases, color = district)) + 
+    geom_line(size = 1.2) + 
+    geom_point(size = 2) + 
+    geom_label_repel(aes(label = label, fill = district), 
+                     na.rm = TRUE, alpha = .8, color = 'white', size = 3, segment.alpha = .4, segment.colour = 'black', force = 4) +
+    scale_color_viridis_d(end = .9) + 
+    scale_fill_viridis_d(end = .9) + 
+    theme_minimal() +
+    theme(legend.position = 'none') +
+    labs(title = 'New cases per day in last 12 days', y = 'Cases', x = 'Day')
+```
+
+## Total cases in last 12 days
+
+Showing only 6 states most affected
+
+```{r}
+my.rki %>% 
+  filter(district %in% (top.districts %>% head(6))) %>%
+  filter(anydate(base::date()) - date <= 12) %>% 
+  arrange(date) %>% 
+  group_by(district, date) %>%
+  summarize(cases = sum(cases)) %>%
+  mutate(cumul.cases = cumsum(cases),
+         label = if_else(date == last(date), paste0(district, '(', format(cumul.cases, big.mark=','), ')'), '')) %>%
+  ggplot(aes(x = date, y = cumul.cases, color = district)) + 
+    geom_line(size = 1.2) + 
+    geom_point(size = 2) + 
+    geom_label_repel(aes(label = label, fill = district), 
+                     na.rm = TRUE, alpha = .8, color = 'white', size = 3, segment.alpha = .4, segment.colour = 'black', force = 2) +
+    scale_color_viridis(discrete = TRUE, end = .5) +
+    scale_fill_viridis(discrete = TRUE, end = .5) + 
+    theme_minimal() +
+    theme(legend.position = 'none')
+```
+
+## Total deaths in last 12 days
+
+Showing only 6 states most affected
+
+```{r}
+my.rki %>% 
+  filter(district %in% (top.districts %>% head(6))) %>%
+  filter(anydate(base::date()) - date <= 12) %>% 
+  arrange(date) %>% 
+  group_by(district, date) %>%
+  summarize(cases = sum(deaths)) %>%
+  mutate(cumul.cases = cumsum(cases),
+         label = if_else(date == last(date), paste0(district, '(', format(cumul.cases, big.mark=','), ')'), '')) %>%
+  ggplot(aes(x = date, y = cumul.cases, color = district)) + 
+    geom_line(size = 1.2) + 
+    geom_point(size = 2) + 
+    geom_label_repel(aes(label = label, fill = district), 
+                     na.rm = TRUE, alpha = .8, color = 'white', size = 3, segment.alpha = .4, segment.colour = 'black', force = 2) +
+    scale_color_viridis(discrete = TRUE, end = .5) +
+    scale_fill_viridis(discrete = TRUE, end = .5) + 
+    theme_minimal() +
+    theme(legend.position = 'none')
+```
+
+```{r}
+age.plot.state(my.rki, 'cases', top.states %>% head(6), 'Number of Cases')
+```
+
+```{r}
+age.plot.state(my.rki, 'deaths', top.states %>% head(6), 'Number of Deaths')
+```
+
+```{r}
+age.plot.district(my.rki, 'cases', top.districts %>% head(6), 'Number of Cases')
+```
+
+```{r}
+age.plot.district(my.rki, 'deaths', top.districts %>% head(6), 'Number of Deaths')
+```
+
+
 
