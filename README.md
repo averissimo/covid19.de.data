@@ -5,6 +5,7 @@ Germany data on district level
 
 ``` r
 rki.covid19.tmp <- update.dataset()
+## Downloading rows with the following 'where' clause: NOT ((ObjectId >= 560098 AND ObjectId <= 585873))
 ## Data is up to date, nothing to do...
 ```
 
@@ -12,60 +13,64 @@ rki.covid19.tmp <- update.dataset()
 
 ### New Cases in states
 
-![](download_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](/home/averissimo/rki.district.data/README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 ### New Deaths in states
 
-![](download_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](/home/averissimo/rki.district.data/README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 ### New cases in districts
 
-![](download_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](/home/averissimo/rki.district.data/README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 ### New deaths in districts
 
-![](download_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](/home/averissimo/rki.district.data/README_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 ## Total cases in last 12 days in most affected states/districts
 
 ### Total cases in states
 
-Showing only 6 states most affected
+Showing only 6 states most
+affected
 
-![](download_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+![](/home/averissimo/rki.district.data/README_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 ### Total deaths in states
 
-Showing only 6 states most affected
+Showing only 6 states most
+affected
 
-![](download_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](/home/averissimo/rki.district.data/README_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
 ### Total cases in districs
 
-Showing only 6 districs most affected
+Showing only 6 districs most
+affected
 
-![](download_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+![](/home/averissimo/rki.district.data/README_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
 ### Total deaths in districs
 
-Showing only 6 districs most affected
+Showing only 6 districs most
+affected
 
-![](download_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](/home/averissimo/rki.district.data/README_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
 ## Cases by age groups
 
 ### Cases in states
 
-![](download_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+![](/home/averissimo/rki.district.data/README_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
 
 ### Deaths in states
 
-![](download_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](/home/averissimo/rki.district.data/README_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
 
 ### Cases in districts
 
-![](download_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+![](/home/averissimo/rki.district.data/README_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
 
 ### Deaths in districts
 
-![](download_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+![](/home/averissimo/rki.district.data/README_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->

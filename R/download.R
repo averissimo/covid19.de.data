@@ -31,14 +31,17 @@ add.factors <- function(dat) {
 #' @examples
 #' update.dataset()
 update.dataset <- function() {
-  data("rki.covid19")
+
+  rki.covid19 <- tibble()
+
+  tryCatch(rki.covid19 <- rki.de.district.data::rki.covid19,
+           error = function(err) { futile.logger::flog.debug('Error:: %s', err)})
 
   rki.covid19.tmp <- tibble()
   rki.covid19.tmp <- download.state(rki.covid19)
 
   rki.covid19.tmp <- rki.covid19.tmp %>%
-    arrange(desc(date)) %>%
-    mutate(date = anydate(format(date, '%Y/%m/%d')))
+    arrange(desc(date))
 
   if (!exists('rki.covid19') || (!all(rki.covid19.tmp$object.id %in% rki.covid19$object.id))) {
     flog.info('Data returned from this function was updated.')
@@ -137,7 +140,7 @@ download.state <- function(existing.data = tibble(), max.record = 500) {
 
   dta.tmp <- existing.data
 
-  if (nrow(dta.tmp) > 0) {
+    if (nrow(dta.tmp) > 0) {
     dta <- dta.tmp
 
     exclude.ids <- existing.data %>%
@@ -151,6 +154,12 @@ download.state <- function(existing.data = tibble(), max.record = 500) {
     exclude.ids <- NULL
   }
   dta.tmp <- NULL
+
+  if(is.null(exclude.ids)) {
+    flog.info('Downloading all data available')
+  } else {
+    flog.info('Downloading rows with the following \'where\' clause: %s', exclude.ids)
+  }
 
   # Download chunks of 500
   while (!stop.me) {
@@ -255,6 +264,7 @@ download.raw <- function(offset = 0, max.record = 1000, exclude.ids = NULL) {
 
   dta %>%
     dplyr::mutate(Meldedatum = anytime::anytime(Meldedatum / 1000)) %>%
+    mutate(Meldedatum = anydate(format(Meldedatum, '%Y/%m/%d'))) %>%
     dplyr::select(date = Meldedatum,
                   # date.status = Datenstand, # removed as it will only show a meaningless date
                   id.state = IdBundesland,

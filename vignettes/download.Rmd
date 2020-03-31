@@ -1,13 +1,14 @@
 ---
 title: "Germany data on district level"
 output: 
+  github_document:
   html_document:
     toc: true
     dev: svg
 ---
 
 ```{r, eval=FALSE, include=FALSE}
-rmarkdown::render('download.Rmd')
+rmarkdown::render('download.Rmd', output_format = rmarkdown::github_document(), output_file = '../README.md', output_dir = '..')
 ```
 
 
