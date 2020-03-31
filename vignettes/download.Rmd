@@ -7,32 +7,6 @@ output:
     dev: svg
 ---
 
-> COVID-19 District level data from Robert Koch Institute in Germany
-
-The data in this package is downloaded from ARCGIS REST API using the [RKI_COVID19](https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_COVID19/FeatureServer/0/query?where=Meldedatum+%3E+(CURRENT_TIMESTAMP+-+3)&objectIds=&time=&resultType=none&outFields=*&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnDistinctValues=false&cacheHint=false&orderByFields=Meldedatum&outStatistics=&having=&resultOffset=&resultRecordCount=&sqlFormat=none&f=html&token=) feature server.
-
-## Install / Usage
-
-The data is available inside the `data/` folder in `.csv` format. 
-
-It can also be used as an *R package* by installing this repository directly:
-
-```{r, eval=FALSE, echo=TRUE}
-> BiocManager::install_github('averissimo/covid19-de_rki-data')
-# or
-> devtools::install_github('averissimo/covid19-de_rki-data')
-```
-
-## Update data
-
-To retrieve the lastest yourself use the following function of the R package. 
-
-```{r, eval=FALSE, echo=TRUE}
-> rki.de.district.data::update.dataset()
-```
-
-Note that, as of now, the data is updated by the Robert Koch Institute once a day.
-
 ```{r, eval=FALSE, include=FALSE}
 rmarkdown::render('download.Rmd', output_format = rmarkdown::github_document(), output_file = 'README.md')
 unlink('../README.md')
@@ -65,6 +39,37 @@ Sys.setlocale('LC_TIME', 'en_GB.UTF-8')
 devtools::load_all()
 ```
 
+
+
+
+
+
+> COVID-19 District level data from Robert Koch Institute in Germany
+
+The data in this package is downloaded from ARCGIS REST API using the [RKI_COVID19](https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_COVID19/FeatureServer/0/query?where=Meldedatum+%3E+(CURRENT_TIMESTAMP+-+3)&objectIds=&time=&resultType=none&outFields=*&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnDistinctValues=false&cacheHint=false&orderByFields=Meldedatum&outStatistics=&having=&resultOffset=&resultRecordCount=&sqlFormat=none&f=html&token=) feature server.
+
+## Install / Usage
+
+The data is available inside the `data/` folder in `.csv` format. 
+
+It can also be used as an *R package* by installing this repository directly:
+
+```{r, eval=FALSE, echo=TRUE}
+> BiocManager::install_github('averissimo/covid19-de_rki-data')
+# or
+> devtools::install_github('averissimo/covid19-de_rki-data')
+```
+
+## Update data
+
+To retrieve the lastest yourself use the following function of the R package. 
+
+```{r, eval=FALSE, echo=TRUE}
+> rki.de.district.data::update.dataset()
+```
+
+Note that, as of now, the data is updated by the Robert Koch Institute once a day.
+
 ```{r, include=FALSE}
 rki.covid19.tmp <- update.dataset()
 ```
@@ -91,13 +96,13 @@ top.districts <- my.rki %>% group_by(district) %>% summarise(cases = sum(deaths)
 
 ## Data visualization
 
-### New cases/deaths per day in most affected states/districts {.tabset .tabset-fade .tabset-pills}
+### New cases/deaths per day *in most affected states/districts* {.tabset .tabset-fade .tabset-pills}
 
 #### New Cases in states
 
 ```{r}
 my.rki %>% 
-  filter(state %in% (top.states %>% head(6))) %>%
+  filter(state %in% (top.states %>% head(8))) %>%
   filter(anydate(base::date()) - date <= 12) %>% 
   arrange(desc(date)) %>% 
   group_by(state, date) %>%
@@ -113,14 +118,15 @@ my.rki %>%
     scale_fill_viridis_d(end = .8) + 
     theme_minimal() +
     theme(legend.position = 'none') +
-    labs(title = 'New cases per day in last 12 days', y = 'Cases', x = 'Day')
+    labs(title = 'New cases per day in last 12 days', y = 'Cases', x = 'Day',
+         subtitle = 'Showing only 8 most affected states')
 ```
 
 #### New Deaths in states
 
 ```{r}
 my.rki %>% 
-  filter(state %in% (top.states %>% head(6))) %>%
+  filter(state %in% (top.states %>% head(8))) %>%
   filter(anydate(base::date()) - date <= 12) %>% 
   arrange(desc(date)) %>% 
   group_by(state, date) %>%
@@ -137,14 +143,14 @@ my.rki %>%
     theme_minimal() +
     theme(legend.position = 'none') +
     labs(title = 'New deaths per day in last 12 days', y = 'Deaths', x = 'Day',
-         subtitle = 'Showing only 6 most affected states')
+         subtitle = 'Showing only 8 most affected states')
 ```
 
 #### New cases in districts
 
 ```{r}
 my.rki %>% 
-  filter(district %in% (top.districts %>% head(7))) %>%
+  filter(district %in% (top.districts %>% head(8))) %>%
   filter(anydate(base::date()) - date <= 12) %>% 
   arrange(desc(date)) %>% 
   group_by(district, date) %>%
@@ -161,14 +167,14 @@ my.rki %>%
     theme_minimal() +
     theme(legend.position = 'none') +
     labs(title = 'New cases per day in last 12 days', y = 'Cases', x = 'Day',
-         subtitle = 'Showing only 7 most affected states')
+         subtitle = 'Showing only 8 most affected states')
 ```
 
 #### New deaths in districts
 
 ```{r}
 my.rki %>% 
-  filter(district %in% (top.districts %>% head(7))) %>%
+  filter(district %in% (top.districts %>% head(8))) %>%
   filter(anydate(base::date()) - date <= 12) %>% 
   arrange(desc(date)) %>% 
   group_by(district, date) %>%
@@ -185,16 +191,16 @@ my.rki %>%
     theme_minimal() +
     theme(legend.position = 'none') +
     labs(title = 'New cases per day in last 12 days', y = 'Cases', x = 'Day',
-         subtitle = 'Showing only 7 most affected districts')
+         subtitle = 'Showing only 8 most affected districts')
 ```
 
-### Total cases in last 12 days in most affected states/districts {.tabset .tabset-fade .tabset-pills}
+### Total cases in last 12 days *in most affected states/districts* {.tabset .tabset-fade .tabset-pills}
 
 #### Total cases in states
 
 ```{r}
 my.rki %>% 
-  filter(state %in% (top.states %>% head(7))) %>%
+  filter(state %in% (top.states %>% head(8))) %>%
   filter(anydate(base::date()) - date <= 12) %>% 
   arrange(date) %>% 
   group_by(state, date) %>%
@@ -211,7 +217,7 @@ my.rki %>%
     theme_minimal() +
     theme(legend.position = 'none') +
     labs(title = 'Total cases per day in last 12 days', y = 'Total Cases', x = 'Day',
-         subtitle = 'Showing only 7 most affected states')
+         subtitle = 'Showing only 8 most affected states')
 ```
 
 #### Total deaths in states
@@ -220,7 +226,7 @@ Showing only 6 states most affected
 
 ```{r}
 my.rki %>% 
-  filter(state %in% (top.states %>% head(7))) %>%
+  filter(state %in% (top.states %>% head(8))) %>%
   filter(anydate(base::date()) - date <= 12) %>% 
   arrange(date) %>% 
   group_by(state, date) %>%
@@ -237,7 +243,7 @@ my.rki %>%
     theme_minimal() +
     theme(legend.position = 'none') +
     labs(title = 'Total deaths per day in last 12 days', y = 'Total Deaths', x = 'Day',
-         subtitle = 'Showing only 7 most affected states')
+         subtitle = 'Showing only 8 most affected states')
 ```
 
 #### Total cases in districs
@@ -246,7 +252,7 @@ Showing only 6 districs most affected
 
 ```{r}
 my.rki %>% 
-  filter(district %in% (top.districts %>% head(7))) %>%
+  filter(district %in% (top.districts %>% head(8))) %>%
   filter(anydate(base::date()) - date <= 12) %>% 
   arrange(date) %>% 
   group_by(district, date) %>%
@@ -263,7 +269,7 @@ my.rki %>%
     theme_minimal() +
     theme(legend.position = 'none') +
     labs(title = 'Total cases per day in last 12 days', y = 'Total Cases', x = 'Day',
-         subtitle = 'Showing only 7 most affected districts')
+         subtitle = 'Showing only 8 most affected districts')
 ```
 
 #### Total deaths in districs
@@ -272,7 +278,7 @@ Showing only 6 districs most affected
 
 ```{r}
 my.rki %>% 
-  filter(district %in% (top.districts %>% head(7))) %>%
+  filter(district %in% (top.districts %>% head(8))) %>%
   filter(anydate(base::date()) - date <= 12) %>% 
   arrange(date) %>% 
   group_by(district, date) %>%
@@ -289,7 +295,7 @@ my.rki %>%
     theme_minimal() +
     theme(legend.position = 'none') +
     labs(title = 'Total deaths per day in last 12 days', y = 'Total Deaths', x = 'Day',
-         subtitle = 'Showing only 7 most affected districts')
+         subtitle = 'Showing only 8 most affected districts')
 ```
 
 ### Cases by age groups {.tabset .tabset-fade .tabset-pills}
@@ -315,7 +321,7 @@ age.plot.district(my.rki, 'cases', top.districts %>% head(8), 'Number of Cases')
 #### Deaths in districts
 
 ```{r}
-age.plot.district(my.rki, 'deaths', top.districts %>% head(6), 'Number of Deaths')
+age.plot.district(my.rki, 'deaths', top.districts %>% head(8), 'Number of Deaths')
 ```
 
 
