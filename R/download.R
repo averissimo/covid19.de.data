@@ -183,7 +183,9 @@ download.state <- function(existing.data = tibble(), max.record = 500) {
     }
   }
 
-  return(dta)
+  dta %>%
+    filter(last.update == max(last.update)) %>%
+    return()
 }
 
 #' Download call to ARCGIS
@@ -264,9 +266,9 @@ download.raw <- function(offset = 0, max.record = 1000, exclude.ids = NULL) {
 
   dta %>%
     dplyr::mutate(Meldedatum = anytime::anytime(Meldedatum / 1000)) %>%
-    mutate(Meldedatum = anydate(format(Meldedatum, '%Y/%m/%d'))) %>%
+    mutate(Meldedatum = anydate(format(Meldedatum, '%Y/%m/%d')),
+           Datenstand = anytime(Datenstand)) %>%
     dplyr::select(date = Meldedatum,
-                  # date.status = Datenstand, # removed as it will only show a meaningless date
                   id.state = IdBundesland,
                   state = Bundesland,
                   id.district = IdLandkreis,
@@ -276,6 +278,7 @@ download.raw <- function(offset = 0, max.record = 1000, exclude.ids = NULL) {
                   cases = AnzahlFall,
                   deaths = AnzahlTodesfall,
                   object.id = ObjectId,
+                  last.update = Datenstand # removed as it will only show a meaningless date
                   ) %>%
     return()
 }

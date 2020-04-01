@@ -3,9 +3,14 @@ Germany data on district level
 
 > COVID-19 District level data from Robert Koch Institute in Germany
 
-The data in this package is downloaded from ARCGIS REST API using the
+The data is updated daily and is downloaded from a ARCGIS REST API using
+the
 [RKI\_COVID19](https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_COVID19/FeatureServer/0/query?where=Meldedatum+%3E+\(CURRENT_TIMESTAMP+-+3\)&objectIds=&time=&resultType=none&outFields=*&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnDistinctValues=false&cacheHint=false&orderByFields=Meldedatum&outStatistics=&having=&resultOffset=&resultRecordCount=&sqlFormat=none&f=html&token=)
 feature server.
+
+Data from previous dates can be changed over time and update the data
+files accordingly, therefore `object.id` for any given row will change
+daily.
 
 Source code available at
 [averissimo/covid19-rki\_de-data](https://github.com/averissimo/covid19-de_rki-data).
