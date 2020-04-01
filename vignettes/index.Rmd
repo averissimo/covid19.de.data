@@ -117,12 +117,12 @@ top.districts <- my.rki %>% group_by(district) %>% summarise(cases = sum(deaths)
 ```{r}
 my.rki %>% 
   filter(state %in% (top.states %>% head(8))) %>%
-  filter(anydate(base::date()) - date <= 12) %>% 
   arrange(desc(date)) %>% 
   group_by(state, date) %>%
   summarize(cases = sum(cases)) %>%
   arrange(date) %>% 
   mutate(label = if_else(date == last(date), paste0(state, ' (', format(cases, big.mark = ','), ')'),'')) %>% 
+  filter(anydate(base::date()) - date <= 12) %>% 
   ggplot(aes(x = date, y = cases, color = state)) + 
     geom_line(size = 1.2) + 
     geom_point(size = 2) + 
@@ -141,12 +141,12 @@ my.rki %>%
 ```{r}
 my.rki %>% 
   filter(state %in% (top.states %>% head(8))) %>%
-  filter(anydate(base::date()) - date <= 12) %>% 
   arrange(desc(date)) %>% 
   group_by(state, date) %>%
   summarize(cases = sum(deaths)) %>%
   arrange(date) %>% 
   mutate(label = if_else(date == last(date), paste0(state, ' (', format(cases, big.mark = ','), ')'),'')) %>% 
+  filter(anydate(base::date()) - date <= 12) %>% 
   ggplot(aes(x = date, y = cases, color = state)) + 
     geom_line(size = 1.2) + 
     geom_point(size = 2) + 
@@ -165,12 +165,12 @@ my.rki %>%
 ```{r}
 my.rki %>% 
   filter(district %in% (top.districts %>% head(8))) %>%
-  filter(anydate(base::date()) - date <= 12) %>% 
   arrange(desc(date)) %>% 
   group_by(district, date) %>%
   summarize(cases = sum(cases)) %>%
   arrange(date) %>% 
   mutate(label = if_else(date == last(date), paste0(district, ' (', format(cases, big.mark = ','), ')'),'')) %>% 
+  filter(anydate(base::date()) - date <= 12) %>% 
   ggplot(aes(x = date, y = cases, color = district)) + 
     geom_line(size = 1.2) + 
     geom_point(size = 2) + 
@@ -189,12 +189,12 @@ my.rki %>%
 ```{r}
 my.rki %>% 
   filter(district %in% (top.districts %>% head(8))) %>%
-  filter(anydate(base::date()) - date <= 12) %>% 
   arrange(desc(date)) %>% 
   group_by(district, date) %>%
   summarize(cases = sum(deaths)) %>%
   arrange(date) %>% 
   mutate(label = if_else(date == last(date), paste0(district, ' (', format(cases, big.mark = ','), ')'),'')) %>% 
+  filter(anydate(base::date()) - date <= 12) %>% 
   ggplot(aes(x = date, y = cases, color = district)) + 
     geom_line(size = 1.2) + 
     geom_point(size = 2) + 
@@ -215,12 +215,12 @@ my.rki %>%
 ```{r}
 my.rki %>% 
   filter(state %in% (top.states %>% head(8))) %>%
-  filter(anydate(base::date()) - date <= 12) %>% 
   arrange(date) %>% 
   group_by(state, date) %>%
   summarize(cases = sum(cases)) %>%
   mutate(cumul.cases = cumsum(cases),
          label = if_else(date == last(date), paste0(state, '(', format(cumul.cases, big.mark=','), ')'), '')) %>%
+  filter(anydate(base::date()) - date <= 12) %>% 
   ggplot(aes(x = date, y = cumul.cases, color = state)) + 
     geom_line(size = 1.2) + 
     geom_point(size = 2) + 
@@ -241,12 +241,12 @@ Showing only 6 states most affected
 ```{r}
 my.rki %>% 
   filter(state %in% (top.states %>% head(8))) %>%
-  filter(anydate(base::date()) - date <= 12) %>% 
   arrange(date) %>% 
   group_by(state, date) %>%
   summarize(cases = sum(deaths)) %>%
   mutate(cumul.cases = cumsum(cases),
          label = if_else(date == last(date), paste0(state, '(', format(cumul.cases, big.mark=','), ')'), '')) %>%
+  filter(anydate(base::date()) - date <= 12) %>% 
   ggplot(aes(x = date, y = cumul.cases, color = state)) + 
     geom_line(size = 1.2) + 
     geom_point(size = 2) + 
@@ -267,12 +267,12 @@ Showing only 6 districs most affected
 ```{r}
 my.rki %>% 
   filter(district %in% (top.districts %>% head(8))) %>%
-  filter(anydate(base::date()) - date <= 12) %>% 
   arrange(date) %>% 
   group_by(district, date) %>%
   summarize(cases = sum(cases)) %>%
   mutate(cumul.cases = cumsum(cases),
          label = if_else(date == last(date), paste0(district, '(', format(cumul.cases, big.mark=','), ')'), '')) %>%
+  filter(anydate(base::date()) - date <= 12) %>% 
   ggplot(aes(x = date, y = cumul.cases, color = district)) + 
     geom_line(size = 1.2) + 
     geom_point(size = 2) + 
@@ -293,12 +293,12 @@ Showing only 6 districs most affected
 ```{r}
 my.rki %>% 
   filter(district %in% (top.districts %>% head(8))) %>%
-  filter(anydate(base::date()) - date <= 12) %>% 
   arrange(date) %>% 
   group_by(district, date) %>%
   summarize(cases = sum(deaths)) %>%
   mutate(cumul.cases = cumsum(cases),
          label = if_else(date == last(date), paste0(district, '(', format(cumul.cases, big.mark=','), ')'), '')) %>%
+  filter(anydate(base::date()) - date <= 12) %>% 
   ggplot(aes(x = date, y = cumul.cases, color = district)) + 
     geom_line(size = 1.2) + 
     geom_point(size = 2) + 
