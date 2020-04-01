@@ -8,7 +8,7 @@ The data in this package is downloaded from ARCGIS REST API using the
 feature server.
 
 Source code available at
-[averissimo/covid19-rki\_de-data](https://gihub.com/averissimo/covid19-rki_de-data).
+[averissimo/covid19-rki\_de-data](https://github.com/averissimo/covid19-de_rki-data).
 
 **Other covid-19
     related:**
