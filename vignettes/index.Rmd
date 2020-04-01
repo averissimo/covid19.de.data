@@ -9,7 +9,7 @@ output:
 ---
 
 ```{r, eval=FALSE, include=FALSE}
-rmarkdown::render('download.Rmd', output_format = rmarkdown::github_document(), output_file = 'README.md')
+rmarkdown::render('index.Rmd', output_format = rmarkdown::github_document(), output_file = 'README.md')
 unlink('../README.md')
 unlink('../README_files', recursive = TRUE, force = TRUE)
 file.copy('README.md', '../README.md')
