@@ -10,15 +10,17 @@ License: MIT
 Encoding: UTF-8
 Depends: R (>= 3.6)
 LazyData: true
-Imports: glue,
-  tidyverse,
-  testthat (>= 2.1.0),
+Imports: testthat (>= 2.1.0),
   rmarkdown,
+  tidyverse,
+  rjson,
+  glue,
   DT,
   anytime,
   futile.logger,
   httr,
   ggrepel,
   ggthemes,
-  viridis
+  viridis,
+  reshape2
 RoxygenNote: 7.1.0

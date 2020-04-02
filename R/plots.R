@@ -49,3 +49,52 @@ age.plot.district <- function(dat, var, filter.district, title) {
          subtitle = 'Showing only 8 most afected districts') +
     facet_wrap(~district, ncol = 2)
 }
+
+top30 <- function(dat, case.type, region.code, n = 30) {
+  my.plot <- dat %>%
+    filter(type == case.type) %>%
+    group_by(state, type) %>%
+    summarise(cases = sum(cases)) %>%
+    arrange(cases) %>%
+    ungroup() %>%
+    mutate(state = paste0(state, ' (', format(cases, big.mark = ',', trim = TRUE), ')')) %>%
+    mutate(state = factor(state, levels = unique(.$state))) %>%
+    top_n(n, cases) %>%
+    ggplot() +
+    geom_bar(aes(state, cases, fill = state), stat = 'identity') +
+    # scale_y_continuous(trans = 'log10') +
+    coord_flip() +
+    labs(y = '{proper.cases(case.type, capitalize = TRUE)}' %>% glue,
+         x = region.code,
+         title = '\'{proper.cases(case.type, capitalize.all = TRUE)}\' by {region.code}' %>% glue ,
+         caption = last.date.string) +
+    theme_minimal() +
+    theme(legend.position = 'none')
+
+  return(my.plot)
+}
+
+
+#' Title
+#'
+#' @param value
+#' @param capitalize
+#' @param capitalize.all
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' proper.cases(c('death', 'confirmed'))
+#' proper.cases(c('death', 'confirmed'), capitalize = TRUE)
+proper.cases <- function(value, capitalize = FALSE, capitalize.all = FALSE) {
+  val = (if_else(value == 'confirmed', 'confirmed cases', if_else(value == 'death', 'deaths', if_else(value == 'all', 'cases', value))))
+  if (capitalize.all) {
+    return(loose.rock::proper(val))
+  } else if (capitalize) {
+    substring(val, 1, 1) = toupper(substring(val, 1, 1))
+    return(val)
+  } else {
+    return(val)
+  }
+}
