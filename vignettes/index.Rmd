@@ -110,8 +110,8 @@ my.rki <- rki.covid19 %>%
   #group_by(id.state, state, id.district, district, gender, age.group) %>%
   arrange(date)
 
-top.states <- my.rki %>% group_by(state) %>% summarise(cases = sum(deaths) * sum(cases)) %>% arrange(-cases) %>% pull(state)
-top.districts <- my.rki %>% group_by(district) %>% summarise(cases = sum(deaths) * sum(cases)) %>% arrange(-cases) %>% pull(district)
+top.states <- my.rki %>% group_by(state) %>% summarise(cases = sum(cases)) %>% arrange(-cases) %>% pull(state)
+top.districts <- my.rki %>% group_by(district) %>% summarise(cases = sum(cases)) %>% arrange(-cases) %>% pull(district)
 
 last.date.string <- 'Latest data from {my.rki %>% pull(date) %>% max}' %>% glue
 ```
