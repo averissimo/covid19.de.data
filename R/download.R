@@ -1,3 +1,10 @@
+#' Download district to nuts mapping
+#'
+#' @return table with map
+#' @export
+#'
+#' @examples
+#' landkreis.mapping.raw()
 landkreis.mapping.raw <- function() {
   # build url for query
   url.base <- 'https://services7.arcgis.com'
