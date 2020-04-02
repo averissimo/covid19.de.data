@@ -101,8 +101,6 @@ landkreis.mapping.raw <- function() {
 #'
 #' @return data frame with factors as columns for age.group, district, id.district, state, id.state
 #' @export
-#'
-#' @examples
 add.factors <- function(dat) {
   my.levels <- c('unbekannt', unique(dat$age.group) %>% sort) %>% unique
   my.labels <- paste('Age', my.levels %>% gsub('A', '', .) %>% gsub('unbekannt', '??-??', .))
@@ -126,8 +124,8 @@ add.factors <- function(dat) {
 #' @export
 #'
 #' @examples
-#' update.dataset()
-update.dataset <- function() {
+#' update_dataset()
+update_dataset <- function() {
 
   rki.covid19 <- tibble()
 
@@ -157,9 +155,9 @@ update.dataset <- function() {
 #' @export
 #'
 #' @examples
-#' range.write(1, 10)
-#' range.write(1, 1)
-range.write <- function(a, b) {
+#' range_write(1, 10)
+#' range_write(1, 1)
+range_write <- function(a, b) {
   if (a == b) {
     'ObjectId = {a}' %>%
       glue::glue() %>%
@@ -181,12 +179,12 @@ range.write <- function(a, b) {
 #' @export
 #'
 #' @examples
-#' identify.ranges(c(1:3, 5, 7:8, 10:12, 14:15))
-#' identify.ranges(c(1:3, 5, 7:8, 10:12, 14))
-#' identify.ranges(c(1, 5, 7:8, 10:12, 14))
-#' identify.ranges(c(1, 5, 7:8, 10:12, 14:19))
-#' identify.ranges(rki.covid19 %>% pull(object.id) %>% unique %>% sort)
-identify.ranges <- function(dat, key.fun = range.write) {
+#' identify_ranges(c(1:3, 5, 7:8, 10:12, 14:15))
+#' identify_ranges(c(1:3, 5, 7:8, 10:12, 14))
+#' identify_ranges(c(1, 5, 7:8, 10:12, 14))
+#' identify_ranges(c(1, 5, 7:8, 10:12, 14:19))
+#' identify_ranges(rki.covid19 %>% pull(object.id) %>% unique %>% sort)
+identify_ranges <- function(dat, key.fun = range_write) {
   ranges <- c()
   if (length(dat) <= 1) {
     return(ranges)
@@ -244,7 +242,7 @@ download.state <- function(existing.data = tibble(), max.record = 500) {
       dplyr::pull(object.id) %>%
       unique %>%
       sort %>%
-      identify.ranges %>%
+      identify_ranges %>%
       paste(collapse = ' OR ') %>%
       paste0('NOT (', ., ')')
   } else {

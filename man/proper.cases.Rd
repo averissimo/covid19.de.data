@@ -2,18 +2,22 @@
 % Please edit documentation in R/plots.R
 \name{proper.cases}
 \alias{proper.cases}
-\title{Title}
+\title{Convrt to proper case}
 \usage{
 proper.cases(value, capitalize = FALSE, capitalize.all = FALSE)
 }
 \arguments{
-\item{capitalize.all}{}
+\item{value}{confirmed or death strings}
+
+\item{capitalize}{capitalize only first word}
+
+\item{capitalize.all}{capitalize all words}
 }
 \value{
-
+string with the proper mapping
 }
 \description{
-Title
+Convrt to proper case
 }
 \examples{
 proper.cases(c('death', 'confirmed'))

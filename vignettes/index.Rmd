@@ -78,42 +78,25 @@ It can also be used as an *R package* by installing this repository directly:
 
 ## Update data
 
-```{r, include=FALSE}
-tryCatch({
-  .Last.value <- rki.de.district.data::de.nuts.mapping
-}, error = function(err) {
-  de.nuts.mapping <- landkreis.mapping.raw()
-  usethis::use_data(de.nuts.mapping, overwrite = TRUE)
-  write_csv2(de.nuts.mapping, path = '../data/de.nuts.mapping.csv')
-})
-```
-
 To retrieve the lastest yourself use the following function of the R package. 
 
 ```{r, eval=FALSE, echo=TRUE}
-> rki.de.district.data::update.dataset()
+> rki.de.district.data::update_dataset()
 ```
 
 Note that, as of now, the data is updated by the Robert Koch Institute once a day.
 
 ```{r, include=FALSE}
-rki.covid19.tmp <- update.dataset()
+rki.covid19.tmp <- update_dataset()
 ```
 
 ```{r, include=FALSE}
-tryCatch({
-  .Last.value <- rki.de.district.data::rki.covid19
-  if (!all(rki.covid19.tmp$object.id %in% rki.covid19$object.id)) {
-    rki.covid19 <- rki.covid19.tmp
-    usethis::use_data(rki.covid19, overwrite = TRUE)
-    write_csv2(rki.covid19, path = '../data/rki.covid19.csv')
-  }
-}, error = function(err) {
+data('rki.covid19')
+if (!exists('rki.covid19') || (!all(rki.covid19.tmp$object.id %in% rki.covid19$object.id))) {
   rki.covid19 <- rki.covid19.tmp
-    usethis::use_data(rki.covid19, overwrite = TRUE)
-    write_csv2(rki.covid19, path = '../data/rki.covid19.csv')
-    devtools::load_all()
-})
+  usethis::use_data(rki.covid19, overwrite = TRUE)
+  write_csv2(rki.covid19, path = '../data/rki.covid19.csv')
+}
 ```
 
 

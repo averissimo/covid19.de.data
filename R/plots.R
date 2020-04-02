@@ -75,14 +75,13 @@ top30 <- function(dat, case.type, region.code, n = 30) {
 }
 
 
-#' Title
+#' Convrt to proper case
 #'
-#' @param value
-#' @param capitalize
-#' @param capitalize.all
+#' @param value confirmed or death strings
+#' @param capitalize capitalize only first word
+#' @param capitalize.all capitalize all words
 #'
-#' @return
-#' @export
+#' @return string with the proper mapping
 #'
 #' @examples
 #' proper.cases(c('death', 'confirmed'))
