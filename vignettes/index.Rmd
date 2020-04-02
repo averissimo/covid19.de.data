@@ -102,6 +102,10 @@ if (!exists('rki.covid19') || (!all(rki.covid19.tmp$object.id %in% rki.covid19$o
 
 ```{r, include=FALSE}
 my.rki <- rki.covid19 %>%
+  group_by(date, id.state, state, NUTS_3, NUTS_3.code, age.group, gender) %>% 
+  summarise(cases = sum(cases) ,deaths = sum(deaths)) %>% 
+  ungroup() %>% 
+  select(date, id.state, state, district = NUTS_3, id.district = NUTS_3.code, age.group, gender, cases, deaths) %>% 
   add.factors %>% 
   #group_by(id.state, state, id.district, district, gender, age.group) %>%
   arrange(date)
