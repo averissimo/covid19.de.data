@@ -114,7 +114,7 @@ last.date.string <- 'Latest data from {my.rki %>% pull(date) %>% max}' %>% glue
 
 ## Data visualization
 
-### Cases by Federal State
+### Cases by Federal State {.tabset .tabset-fade .tabset-pills}
 
 #### Confirmed cases
 
@@ -133,7 +133,7 @@ top30(sum.rki, 'confirmed', 'Federal State')
 top30(sum.rki, 'death', 'Federal State')
 ```
 
-### Cases by Districts *(Showing only top 30)*
+### Cases by Districts *(Showing only 50 districts with most cases/deaths)* {.tabset .tabset-fade .tabset-pills}
 
 #### Confirmed cases
 
