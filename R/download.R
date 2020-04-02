@@ -72,7 +72,7 @@ landkreis.mapping.raw <- function() {
   }
 
   # build results
-  dta <- tibble()
+  dta <- tibble::tibble()
   if (length(json_data$features) == 0) {
     return(dta)
   }
@@ -127,12 +127,12 @@ add.factors <- function(dat) {
 #' update_dataset()
 update_dataset <- function() {
 
-  rki.covid19 <- tibble()
+  rki.covid19 <- tibble::tibble()
 
   tryCatch(rki.covid19 <- rki.de.district.data::rki.covid19,
            error = function(err) { futile.logger::flog.debug('Error:: %s', err)})
 
-  rki.covid19.tmp <- tibble()
+  rki.covid19.tmp <- tibble::tibble()
   rki.covid19.tmp <- download.state(rki.covid19)
 
   rki.covid19.tmp <- rki.covid19.tmp %>%
@@ -228,8 +228,8 @@ identify_ranges <- function(dat, key.fun = range_write) {
 #' @examples
 #' download.state(1)
 #' download.state(2)
-download.state <- function(existing.data = tibble(), max.record = 500) {
-  dta     <- tibble()
+download.state <- function(existing.data = tibble::tibble(), max.record = 500) {
+  dta     <- tibble::tibble()
   offset  <- 0
   stop.me <- FALSE
 
@@ -279,7 +279,7 @@ download.state <- function(existing.data = tibble(), max.record = 500) {
   }
 
   dta %>%
-    filter(last.update == max(last.update)) %>%
+    dplyr::filter(last.update == max(last.update)) %>%
     return()
 }
 
@@ -349,7 +349,7 @@ download.raw <- function(offset = 0, max.record = 1000, exclude.ids = NULL) {
   }
 
   # build results
-  dta <- tibble()
+  dta <- tibble::tibble()
   if (length(json_data$features) == 0) {
     return(dta)
   }
@@ -361,7 +361,7 @@ download.raw <- function(offset = 0, max.record = 1000, exclude.ids = NULL) {
 
   dta %>%
     dplyr::mutate(Meldedatum = anytime::anytime(Meldedatum / 1000)) %>%
-    mutate(Meldedatum = anydate(format(Meldedatum, '%Y/%m/%d')),
+    dplyr::mutate(Meldedatum = anydate(format(Meldedatum, '%Y/%m/%d')),
            Datenstand = anytime(Datenstand)) %>%
     dplyr::select(date = Meldedatum,
                   id.state = IdBundesland,
@@ -375,8 +375,8 @@ download.raw <- function(offset = 0, max.record = 1000, exclude.ids = NULL) {
                   object.id = ObjectId,
                   last.update = Datenstand # removed as it will only show a meaningless date
                   ) %>%
-    inner_join(rki.de.district.data::de.nuts.mapping %>% select(NUTS_3.code = NUTS_3, id.district),
+    dplyr::inner_join(rki.de.district.data::de.nuts.mapping %>% select(NUTS_3.code = NUTS_3, id.district),
                by = c('id.district')) %>%
-    mutate(NUTS_3 = eurostat::label_eurostat(NUTS_3.code, dic = 'geo')) %>%
+    dplyr::mutate(NUTS_3 = eurostat::label_eurostat(NUTS_3.code, dic = 'geo')) %>%
     return()
 }
