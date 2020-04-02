@@ -139,9 +139,9 @@ update_dataset <- function() {
     arrange(desc(date))
 
   if (!exists('rki.covid19') || (!all(rki.covid19.tmp$object.id %in% rki.covid19$object.id))) {
-    flog.info('Data returned from this function was updated.')
+    futile.logger::flog.info('Data returned from this function was updated.')
   } else {
-    flog.info('Data is up to date, nothing to do...')
+    futile.logger::flog.info('Data is up to date, nothing to do...')
   }
   return(rki.covid19.tmp)
 }
@@ -251,9 +251,9 @@ download.state <- function(existing.data = tibble::tibble(), max.record = 500) {
   dta.tmp <- NULL
 
   if(is.null(exclude.ids)) {
-    flog.info('Downloading all data available')
+    futile.logger::flog.info('Downloading all data available')
   } else {
-    flog.info('Downloading rows with the following \'where\' clause: %s', exclude.ids)
+    futile.logger::flog.info('Downloading rows with the following \'where\' clause: %s', exclude.ids)
   }
 
   # Download chunks of 500
