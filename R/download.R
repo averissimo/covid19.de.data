@@ -1,3 +1,93 @@
+landkreis.mapping.raw <- function() {
+  # build url for query
+  url.base <- 'https://services7.arcgis.com'
+  url.key  <- 'mOBPykOjAyBO2ZKk'
+  url.path <- 'arcgis/rest/services/RKI_Landkreisdaten/FeatureServer/0/query'
+
+  url.query <- list(where = 'OBJECTID > 0',
+                    objectIds = '',
+                    time = '',
+                    geometry = '',
+                    geometryType = 'esriGeometryEnvelope',
+                    inSR = '',
+                    spatialRel = 'esriSpatialRelIntersects',
+                    resultType = 'none',
+                    distance = '0.0',
+                    units = 'esriSRUnit_Meter',
+                    returnGeodetic = 'false',
+                    outFields = 'RS, NUTS, county, BL, GEN, BEZ',
+                    returnGeometry = 'false',
+                    returnCentroid = 'false',
+                    featureEncoding = 'esriDefault',
+                    multipatchOption = 'xyFootprint',
+                    maxAllowableOffset = '',
+                    geometryPrecision = '',
+                    outSR = '',
+                    datumTransformation = '',
+                    applyVCSProjection = 'false',
+                    returnIdsOnly = 'false',
+                    returnUniqueIdsOnly = 'false',
+                    returnCountOnly = 'false',
+                    returnExtentOnly = 'false',
+                    eturnQueryGeometry = 'false',
+                    returnDistinctValues = 'false',
+                    cacheHint = 'false',
+                    orderByFields = '',
+                    groupByFieldsForStatistics = '',
+                    outStatistics = '',
+                    having = '',
+                    resultOffset = '',
+                    resultRecordCount = '',
+                    returnZ = 'false',
+                    returnM = 'false',
+                    returnExceededLimitFeatures = 'true',
+                    quantizationParameters = '',
+                    sqlFormat = 'none',
+                    f = 'json',
+                    token = '')
+
+  url.str = '{url.base}/{url.key}/{url.path}' %>% glue::glue()
+
+  response <- httr::GET(url.str, query = url.query)
+  json_data <- httr::content(response, 'text', encoding = 'UTF-8') %>%
+    rjson::fromJSON()
+
+  if (!is.null(json_data$exceededTransferLimit) &&
+      json_data$exceededTransferLimit && length(json_data$features) > max.record) {
+    transfer.limit.reached <<- json_data
+    stop('Exceeded transfer limit!!')
+  }
+
+  if (length(json_data$feature) > 0) {
+    '...{length(json_data$feature)} lines were downloaded' %>%
+      glue::glue() %>%
+      futile.logger::flog.info()
+  }
+
+  # build results
+  dta <- tibble()
+  if (length(json_data$features) == 0) {
+    return(dta)
+  }
+
+  for (ix in seq(length(json_data$features)) ) {
+    val <- json_data$features[[ix]]$attributes
+    if (is.null(val$NUTS)) {
+      val$NUTS <- ''
+    }
+    new.line <- dplyr::bind_rows(val)
+    dta <- dplyr::bind_rows(dta, new.line)
+  }
+
+  dta %>%
+    dplyr::mutate(NUTS = if_else(BL == 'Berlin', 'DE300', NUTS)) %>%
+    dplyr::select(id.district = RS,
+                  district = county,
+                  NUTS_3 = NUTS) %>%
+    return()
+
+}
+
 #' Add factors to rki data
 #'
 #' @param dat rki.de.data
@@ -260,7 +350,7 @@ download.raw <- function(offset = 0, max.record = 1000, exclude.ids = NULL) {
   }
 
   for (ix in seq(length(json_data$features)) ) {
-    new.line <- dplyr::bind_rows(json_data$feature[[ix]])
+    new.line <- dplyr::bind_rows(json_data$features[[ix]])
     dta <- dplyr::bind_rows(dta, new.line)
   }
 
@@ -280,5 +370,8 @@ download.raw <- function(offset = 0, max.record = 1000, exclude.ids = NULL) {
                   object.id = ObjectId,
                   last.update = Datenstand # removed as it will only show a meaningless date
                   ) %>%
+    inner_join(rki.de.district.data::de.nuts.mapping %>% select(NUTS_3.code = NUTS_3, id.district),
+               by = c('id.district')) %>%
+    mutate(NUTS_3 = eurostat::label_eurostat(NUTS_3.code, dic = 'geo')) %>%
     return()
 }

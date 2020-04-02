@@ -1,0 +1,413 @@
+id.district;district;NUTS_3
+01001;SK Flensburg;DEF01
+01002;SK Kiel;DEF02
+01003;SK Lübeck;DEF03
+01004;SK Neumünster;DEF04
+01051;LK Dithmarschen;DEF05
+01053;LK Herzogtum Lauenburg;DEF06
+01054;LK Nordfriesland;DEF07
+01055;LK Ostholstein;DEF08
+01056;LK Pinneberg;DEF09
+01057;LK Plön;DEF0A
+01058;LK Rendsburg-Eckernförde;DEF0B
+01059;LK Schleswig-Flensburg;DEF0C
+01060;LK Segeberg;DEF0D
+01061;LK Steinburg;DEF0E
+01062;LK Stormarn;DEF0F
+02000;SK Hamburg;DE600
+03101;SK Braunschweig;DE911
+03102;SK Salzgitter;DE912
+03103;SK Wolfsburg;DE913
+03151;LK Gifhorn;DE914
+03153;LK Goslar;DE916
+03154;LK Helmstedt;DE917
+03155;LK Northeim;DE918
+03157;LK Peine;DE91A
+03158;LK Wolfenbüttel;DE91B
+03159;LK Göttingen;DE91C
+03241;Region Hannover;DE929
+03251;LK Diepholz;DE922
+03252;LK Hameln-Pyrmont;DE923
+03254;LK Hildesheim;DE925
+03255;LK Holzminden;DE926
+03256;LK Nienburg (Weser);DE927
+03257;LK Schaumburg;DE928
+03351;LK Celle;DE931
+03352;LK Cuxhaven;DE932
+03353;LK Harburg;DE933
+03354;LK Lüchow-Dannenberg;DE934
+03355;LK Lüneburg;DE935
+03356;LK Osterholz;DE936
+03357;LK Rotenburg (Wümme);DE937
+03358;LK Heidekreis;DE938
+03359;LK Stade;DE939
+03360;LK Uelzen;DE93A
+03361;LK Verden;DE93B
+03401;SK Delmenhorst;DE941
+03402;SK Emden;DE942
+03403;SK Oldenburg;DE943
+03404;SK Osnabrück;DE944
+03405;SK Wilhelmshaven;DE945
+03451;LK Ammerland;DE946
+03452;LK Aurich;DE947
+03453;LK Cloppenburg;DE948
+03454;LK Emsland;DE949
+03455;LK Friesland;DE94A
+03456;LK Grafschaft Bentheim;DE94B
+03457;LK Leer;DE94C
+03458;LK Oldenburg;DE94D
+03459;LK Osnabrück;DE94E
+03460;LK Vechta;DE94F
+03461;LK Wesermarsch;DE94G
+03462;LK Wittmund;DE94H
+04011;SK Bremen;DE501
+04012;SK Bremerhaven;DE502
+05111;SK Düsseldorf;DEA11
+05112;SK Duisburg;DEA12
+05113;SK Essen;DEA13
+05114;SK Krefeld;DEA14
+05116;SK Mönchengladbach;DEA15
+05117;SK Mülheim a.d.Ruhr;DEA16
+05119;SK Oberhausen;DEA17
+05120;SK Remscheid;DEA18
+05122;SK Solingen;DEA19
+05124;SK Wuppertal;DEA1A
+05154;LK Kleve;DEA1B
+05158;LK Mettmann;DEA1C
+05162;LK Rhein-Kreis Neuss;DEA1D
+05166;LK Viersen;DEA1E
+05170;LK Wesel;DEA1F
+05314;SK Bonn;DEA22
+05315;SK Köln;DEA23
+05316;SK Leverkusen;DEA24
+05334;StadtRegion Aachen;DEA2D
+05358;LK Düren;DEA26
+05362;LK Rhein-Erft-Kreis;DEA27
+05366;LK Euskirchen;DEA28
+05370;LK Heinsberg;DEA29
+05374;LK Oberbergischer Kreis;DEA2A
+05378;LK Rheinisch-Bergischer Kreis;DEA2B
+05382;LK Rhein-Sieg-Kreis;DEA2C
+05512;SK Bottrop;DEA31
+05513;SK Gelsenkirchen;DEA32
+05515;SK Münster;DEA33
+05554;LK Borken;DEA34
+05558;LK Coesfeld;DEA35
+05562;LK Recklinghausen;DEA36
+05566;LK Steinfurt;DEA37
+05570;LK Warendorf;DEA38
+05711;SK Bielefeld;DEA41
+05754;LK Gütersloh;DEA42
+05758;LK Herford;DEA43
+05762;LK Höxter;DEA44
+05766;LK Lippe;DEA45
+05770;LK Minden-Lübbecke;DEA46
+05774;LK Paderborn;DEA47
+05911;SK Bochum;DEA51
+05913;SK Dortmund;DEA52
+05914;SK Hagen;DEA53
+05915;SK Hamm;DEA54
+05916;SK Herne;DEA55
+05954;LK Ennepe-Ruhr-Kreis;DEA56
+05958;LK Hochsauerlandkreis;DEA57
+05962;LK Märkischer Kreis;DEA58
+05966;LK Olpe;DEA59
+05970;LK Siegen-Wittgenstein;DEA5A
+05974;LK Soest;DEA5B
+05978;LK Unna;DEA5C
+06411;SK Darmstadt;DE711
+06412;SK Frankfurt am Main;DE712
+06413;SK Offenbach;DE713
+06414;SK Wiesbaden;DE714
+06431;LK Bergstraße;DE715
+06432;LK Darmstadt-Dieburg;DE716
+06433;LK Groß-Gerau;DE717
+06434;LK Hochtaunuskreis;DE718
+06435;LK Main-Kinzig-Kreis;DE719
+06436;LK Main-Taunus-Kreis;DE71A
+06437;LK Odenwaldkreis;DE71B
+06438;LK Offenbach;DE71C
+06439;LK Rheingau-Taunus-Kreis;DE71D
+06440;LK Wetteraukreis;DE71E
+06531;LK Gießen;DE721
+06532;LK Lahn-Dill-Kreis;DE722
+06533;LK Limburg-Weilburg;DE723
+06534;LK Marburg-Biedenkopf;DE724
+06535;LK Vogelsbergkreis;DE725
+06611;SK Kassel;DE731
+06631;LK Fulda;DE732
+06632;LK Hersfeld-Rotenburg;DE733
+06633;LK Kassel;DE734
+06634;LK Schwalm-Eder-Kreis;DE735
+06635;LK Waldeck-Frankenberg;DE736
+06636;LK Werra-Meißner-Kreis;DE737
+07111;SK Koblenz;DEB11
+07131;LK Ahrweiler;DEB12
+07132;LK Altenkirchen;DEB13
+07133;LK Bad Kreuznach;DEB14
+07134;LK Birkenfeld;DEB15
+07135;LK Cochem-Zell;DEB1C
+07137;LK Mayen-Koblenz;DEB17
+07138;LK Neuwied;DEB18
+07140;LK Rhein-Hunsrück-Kreis;DEB1D
+07141;LK Rhein-Lahn-Kreis;DEB1A
+07143;LK Westerwaldkreis;DEB1B
+07211;SK Trier;DEB21
+07231;LK Bernkastel-Wittlich;DEB22
+07232;LK Bitburg-Prüm;DEB23
+07233;LK Vulkaneifel;DEB24
+07235;LK Trier-Saarburg;DEB25
+07311;SK Frankenthal;DEB31
+07312;SK Kaiserslautern;DEB32
+07313;SK Landau i.d.Pfalz;DEB33
+07314;SK Ludwigshafen;DEB34
+07315;SK Mainz;DEB35
+07316;SK Neustadt a.d.Weinstraße;DEB36
+07317;SK Pirmasens;DEB37
+07318;SK Speyer;DEB38
+07319;SK Worms;DEB39
+07320;SK Zweibrücken;DEB3A
+07331;LK Alzey-Worms;DEB3B
+07332;LK Bad Dürkheim;DEB3C
+07333;LK Donnersbergkreis;DEB3D
+07334;LK Germersheim;DEB3E
+07335;LK Kaiserslautern;DEB3F
+07336;LK Kusel;DEB3G
+07337;LK Südliche Weinstraße;DEB3H
+07338;LK Rhein-Pfalz-Kreis;DEB3I
+07339;LK Mainz-Bingen;DEB3J
+07340;LK Südwestpfalz;DEB3K
+08111;SK Stuttgart;DE111
+08115;LK Böblingen;DE112
+08116;LK Esslingen;DE113
+08117;LK Göppingen;DE114
+08118;LK Ludwigsburg;DE115
+08119;LK Rems-Murr-Kreis;DE116
+08121;SK Heilbronn;DE117
+08125;LK Heilbronn;DE118
+08126;LK Hohenlohekreis;DE119
+08127;LK Schwäbisch Hall;DE11A
+08128;LK Main-Tauber-Kreis;DE11B
+08135;LK Heidenheim;DE11C
+08136;LK Ostalbkreis;DE11D
+08211;SK Baden-Baden;DE121
+08212;SK Karlsruhe;DE122
+08215;LK Karlsruhe;DE123
+08216;LK Rastatt;DE124
+08221;SK Heidelberg;DE125
+08222;SK Mannheim;DE126
+08225;LK Neckar-Odenwald-Kreis;DE127
+08226;LK Rhein-Neckar-Kreis;DE128
+08231;SK Pforzheim;DE129
+08235;LK Calw;DE12A
+08236;LK Enzkreis;DE12B
+08237;LK Freudenstadt;DE12C
+08311;SK Freiburg i.Breisgau;DE131
+08315;LK Breisgau-Hochschwarzwald;DE132
+08316;LK Emmendingen;DE133
+08317;LK Ortenaukreis;DE134
+08325;LK Rottweil;DE135
+08326;LK Schwarzwald-Baar-Kreis;DE136
+08327;LK Tuttlingen;DE137
+08335;LK Konstanz;DE138
+08336;LK Lörrach;DE139
+08337;LK Waldshut;DE13A
+08415;LK Reutlingen;DE141
+08416;LK Tübingen;DE142
+08417;LK Zollernalbkreis;DE143
+08421;SK Ulm;DE144
+08425;LK Alb-Donau-Kreis;DE145
+08426;LK Biberach;DE146
+08435;LK Bodenseekreis;DE147
+08436;LK Ravensburg;DE148
+08437;LK Sigmaringen;DE149
+09161;SK Ingolstadt;DE211
+09162;SK München;DE212
+09163;SK Rosenheim;DE213
+09171;LK Altötting;DE214
+09172;LK Berchtesgadener Land;DE215
+09173;LK Bad Tölz-Wolfratshausen;DE216
+09174;LK Dachau;DE217
+09175;LK Ebersberg;DE218
+09176;LK Eichstätt;DE219
+09177;LK Erding;DE21A
+09178;LK Freising;DE21B
+09179;LK Fürstenfeldbruck;DE21C
+09180;LK Garmisch-Partenkirchen;DE21D
+09181;LK Landsberg a.Lech;DE21E
+09182;LK Miesbach;DE21F
+09183;LK Mühldorf a.Inn;DE21G
+09184;LK München;DE21H
+09185;LK Neuburg-Schrobenhausen;DE21I
+09186;LK Pfaffenhofen a.d.Ilm;DE21J
+09187;LK Rosenheim;DE21K
+09188;LK Starnberg;DE21L
+09189;LK Traunstein;DE21M
+09190;LK Weilheim-Schongau;DE21N
+09261;SK Landshut;DE221
+09262;SK Passau;DE222
+09263;SK Straubing;DE223
+09271;LK Deggendorf;DE224
+09272;LK Freyung-Grafenau;DE225
+09273;LK Kelheim;DE226
+09274;LK Landshut;DE227
+09275;LK Passau;DE228
+09276;LK Regen;DE229
+09277;LK Rottal-Inn;DE22A
+09278;LK Straubing-Bogen;DE22B
+09279;LK Dingolfing-Landau;DE22C
+09361;SK Amberg;DE231
+09362;SK Regensburg;DE232
+09363;SK Weiden i.d.OPf.;DE233
+09371;LK Amberg-Sulzbach;DE234
+09372;LK Cham;DE235
+09373;LK Neumarkt i.d.OPf.;DE236
+09374;LK Neustadt a.d.Waldnaab;DE237
+09375;LK Regensburg;DE238
+09376;LK Schwandorf;DE239
+09377;LK Tirschenreuth;DE23A
+09461;SK Bamberg;DE241
+09462;SK Bayreuth;DE242
+09463;SK Coburg;DE243
+09464;SK Hof;DE244
+09471;LK Bamberg;DE245
+09472;LK Bayreuth;DE246
+09473;LK Coburg;DE247
+09474;LK Forchheim;DE248
+09475;LK Hof;DE249
+09476;LK Kronach;DE24A
+09477;LK Kulmbach;DE24B
+09478;LK Lichtenfels;DE24C
+09479;LK Wunsiedel i.Fichtelgebirge;DE24D
+09561;SK Ansbach;DE251
+09562;SK Erlangen;DE252
+09563;SK Fürth;DE253
+09564;SK Nürnberg;DE254
+09565;SK Schwabach;DE255
+09571;LK Ansbach;DE256
+09572;LK Erlangen-Höchstadt;DE257
+09573;LK Fürth;DE258
+09574;LK Nürnberger Land;DE259
+09575;LK Neustadt a.d.Aisch-Bad Windsheim;DE25A
+09576;LK Roth;DE25B
+09577;LK Weißenburg-Gunzenhausen;DE25C
+09661;SK Aschaffenburg;DE261
+09662;SK Schweinfurt;DE262
+09663;SK Würzburg;DE263
+09671;LK Aschaffenburg;DE264
+09672;LK Bad Kissingen;DE265
+09673;LK Rhön-Grabfeld;DE266
+09674;LK Haßberge;DE267
+09675;LK Kitzingen;DE268
+09676;LK Miltenberg;DE269
+09677;LK Main-Spessart;DE26A
+09678;LK Schweinfurt;DE26B
+09679;LK Würzburg;DE26C
+09761;SK Augsburg;DE271
+09762;SK Kaufbeuren;DE272
+09763;SK Kempten (Allgäu);DE273
+09764;SK Memmingen;DE274
+09771;LK Aichach-Friedberg;DE275
+09772;LK Augsburg;DE276
+09773;LK Dillingen a.d.Donau;DE277
+09774;LK Günzburg;DE278
+09775;LK Neu-Ulm;DE279
+09776;LK Lindau;DE27A
+09777;LK Ostallgäu;DE27B
+09778;LK Unterallgäu;DE27C
+09779;LK Donau-Ries;DE27D
+09780;LK Oberallgäu;DE27E
+10041;LK Stadtverband Saarbrücken;DEC01
+10042;LK Merzig-Wadern;DEC02
+10043;LK Neunkirchen;DEC03
+10044;LK Saarlouis;DEC04
+10045;LK Saar-Pfalz-Kreis;DEC05
+10046;LK Sankt Wendel;DEC06
+12051;SK Brandenburg a.d.Havel;DE401
+12052;SK Cottbus;DE402
+12053;SK Frankfurt (Oder);DE403
+12054;SK Potsdam;DE404
+12060;LK Barnim;DE405
+12061;LK Dahme-Spreewald;DE406
+12062;LK Elbe-Elster;DE407
+12063;LK Havelland;DE408
+12064;LK Märkisch-Oderland;DE409
+12065;LK Oberhavel;DE40A
+12066;LK Oberspreewald-Lausitz;DE40B
+12067;LK Oder-Spree;DE40C
+12068;LK Ostprignitz-Ruppin;DE40D
+12069;LK Potsdam-Mittelmark;DE40E
+12070;LK Prignitz;DE40F
+12071;LK Spree-Neiße;DE40G
+12072;LK Teltow-Fläming;DE40H
+12073;LK Uckermark;DE40I
+13003;SK Rostock;DE803
+13004;SK Schwerin;DE804
+13071;LK Mecklenburgische Seenplatte;DE80J
+13072;LK Rostock;DE80K
+13073;LK Vorpommern-Rügen;DE80L
+13074;LK Nordwestmecklenburg;DE80M
+13075;LK Vorpommern-Greifswald;DE80N
+13076;LK Ludwigslust-Parchim;DE80O
+14511;SK Chemnitz;DED41
+14521;LK Erzgebirgskreis;DED42
+14522;LK Mittelsachsen;DED43
+14523;LK Vogtlandkreis;DED44
+14524;LK Zwickau;DED45
+14612;SK Dresden;DED21
+14625;LK Bautzen;DED2C
+14626;LK Görlitz;DED2D
+14627;LK Meißen;DED2E
+14628;LK Sächsische Schweiz-Osterzgebirge;DED2F
+14713;SK Leipzig;DED51
+14729;LK Leipzig;DED52
+14730;LK Nordsachsen;DED53
+15001;SK Dessau-Roßlau;DEE01
+15002;SK Halle;DEE02
+15003;SK Magdeburg;DEE03
+15081;LK Altmarkkreis Salzwedel;DEE04
+15082;LK Anhalt-Bitterfeld;DEE05
+15083;LK Börde;DEE07
+15084;LK Burgenlandkreis;DEE08
+15085;LK Harz;DEE09
+15086;LK Jerichower Land;DEE06
+15087;LK Mansfeld-Südharz;DEE0A
+15088;LK Saalekreis;DEE0B
+15089;LK Salzlandkreis;DEE0C
+15090;LK Stendal;DEE0D
+15091;LK Wittenberg;DEE0E
+16051;SK Erfurt;DEG01
+16052;SK Gera;DEG02
+16053;SK Jena;DEG03
+16054;SK Suhl;DEG04
+16055;SK Weimar;DEG05
+16056;SK Eisenach;DEG0N
+16061;LK Eichsfeld;DEG06
+16062;LK Nordhausen;DEG07
+16063;LK Wartburgkreis;DEG0P
+16064;LK Unstrut-Hainich-Kreis;DEG09
+16065;LK Kyffhäuserkreis;DEG0A
+16066;LK Schmalkalden-Meiningen;DEG0B
+16067;LK Gotha;DEG0C
+16068;LK Sömmerda;DEG0D
+16069;LK Hildburghausen;DEG0E
+16070;LK Ilm-Kreis;DEG0F
+16071;LK Weimarer Land;DEG0G
+16072;LK Sonneberg;DEG0H
+16073;LK Saalfeld-Rudolstadt;DEG0I
+16074;LK Saale-Holzland-Kreis;DEG0J
+16075;LK Saale-Orla-Kreis;DEG0K
+16076;LK Greiz;DEG0L
+16077;LK Altenburger Land;DEG0M
+11012;SK Berlin Reinickendorf;DE300
+11004;SK Berlin Charlottenburg-Wilmersdorf;DE300
+11009;SK Berlin Treptow-Köpenick;DE300
+11003;SK Berlin Pankow;DE300
+11008;SK Berlin Neukölln;DE300
+11011;SK Berlin Lichtenberg;DE300
+11010;SK Berlin Marzahn-Hellersdorf;DE300
+11005;SK Berlin Spandau;DE300
+11006;SK Berlin Steglitz-Zehlendorf;DE300
+11001;SK Berlin Mitte;DE300
+11002;SK Berlin Friedrichshain-Kreuzberg;DE300
+11007;SK Berlin Tempelhof-Schöneberg;DE300
