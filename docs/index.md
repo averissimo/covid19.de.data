@@ -49,7 +49,8 @@ package.
 ```
 
 Note that, as of now, the data is updated by the Robert Koch Institute
-once a day.
+once a
+day.
 
 ## Data visualization
 
@@ -63,7 +64,7 @@ once a day.
 
 ![](index_files/figure-gfm/unnamed-chunk-8-1.svg)<!-- -->
 
-### Cases by Districts *(Showing only top 30)*
+### Cases by Districts *(Showing only 50 districts with most cases/deaths)*
 
 #### Confirmed cases
 
