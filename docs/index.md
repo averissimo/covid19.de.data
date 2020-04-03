@@ -13,7 +13,7 @@ files accordingly, therefore `object.id` for any given row will change
 daily.
 
 Source code available at
-[averissimo/covid19-rki\_de-data](https://github.com/averissimo/covid19-de_rki-data).
+[averissimo/covid19-rki\_de-data](https://github.com/averissimo/covid19.de.data).
 
 **Other covid-19
     related:**
@@ -34,9 +34,9 @@ It can also be used as an *R package* by installing this repository
 directly:
 
 ``` r
-> BiocManager::install_github('averissimo/covid19-de_rki-data')
+BiocManager::install_github('averissimo/covid19.de.data')
 # or
-> devtools::install_github('averissimo/covid19-de_rki-data')
+devtools::install_github('averissimo/covid19.de.data')
 ```
 
 ## Update data
@@ -45,7 +45,7 @@ To retrieve the lastest yourself use the following function of the R
 package.
 
 ``` r
-> rki.de.district.data::update_dataset()
+covid19.de.data::update_dataset()
 ```
 
 Note that, as of now, the data is updated by the Robert Koch Institute
