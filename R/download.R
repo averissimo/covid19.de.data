@@ -125,12 +125,14 @@ add.factors <- function(dat) {
 #'
 #' @examples
 #' update_dataset()
-update_dataset <- function() {
+update_dataset <- function(force.all = FALSE) {
 
   rki.covid19 <- tibble::tibble()
 
-  tryCatch(rki.covid19 <- rki.de.district.data::rki.covid19,
-           error = function(err) { futile.logger::flog.debug('Error:: %s', err)})
+  if (!force.all) {
+    tryCatch(rki.covid19 <- rki.de.district.data::rki.covid19,
+             error = function(err) { futile.logger::flog.debug('Error:: %s', err)})
+  }
 
   rki.covid19.tmp <- tibble::tibble()
   rki.covid19.tmp <- download.state(rki.covid19)
@@ -138,7 +140,7 @@ update_dataset <- function() {
   rki.covid19.tmp <- rki.covid19.tmp %>%
     arrange(desc(date))
 
-  if (!exists('rki.covid19') || (!all(rki.covid19.tmp$object.id %in% rki.covid19$object.id))) {
+  if (!exists('rki.covid19') || !any(names(rki.covid19) == 'object.id') || (!all(rki.covid19.tmp$object.id %in% rki.covid19$object.id))) {
     futile.logger::flog.info('Data returned from this function was updated.')
   } else {
     futile.logger::flog.info('Data is up to date, nothing to do...')
@@ -228,14 +230,14 @@ identify_ranges <- function(dat, key.fun = range_write) {
 #' @examples
 #' download.state(1)
 #' download.state(2)
-download.state <- function(existing.data = tibble::tibble(), max.record = 500) {
+download.state <- function(existing.data = tibble::tibble(), max.record = 1000) {
   dta     <- tibble::tibble()
   offset  <- 0
   stop.me <- FALSE
 
   dta.tmp <- existing.data
 
-    if (nrow(dta.tmp) > 0) {
+  if (nrow(dta.tmp) > 0) {
     dta <- dta.tmp
 
     exclude.ids <- existing.data %>%
@@ -248,6 +250,7 @@ download.state <- function(existing.data = tibble::tibble(), max.record = 500) {
   } else {
     exclude.ids <- NULL
   }
+  dta.new <- tibble::tibble()
   dta.tmp <- NULL
 
   if(is.null(exclude.ids)) {
@@ -266,7 +269,7 @@ download.state <- function(existing.data = tibble::tibble(), max.record = 500) {
     }
     # else
 
-    dta <- dta %>% dplyr::bind_rows(dta.tmp)
+    dta.new <- dta.new %>% dplyr::bind_rows(dta.tmp)
 
     if (nrow(dta.tmp) == max.record) {
       offset <- offset + max.record
@@ -278,7 +281,12 @@ download.state <- function(existing.data = tibble::tibble(), max.record = 500) {
     }
   }
 
-  dta %>%
+  nuts_cods.map <- eurostat::label_eurostat(dta.new$NUTS_3.code %>% unique, dic = 'geo')
+  names(nuts_cods.map) <- dta.new$NUTS_3.code %>% unique
+
+  dta.new %>%
+    mutate(NUTS_3 = nuts_cods.map[NUTS_3.code]) %>%
+    bind_rows(dta) %>%
     dplyr::filter(last.update == max(last.update)) %>%
     return()
 }
@@ -359,24 +367,23 @@ download.raw <- function(offset = 0, max.record = 1000, exclude.ids = NULL) {
     dta <- dplyr::bind_rows(dta, new.line)
   }
 
-  dta %>%
-    dplyr::mutate(Meldedatum = anytime::anytime(Meldedatum / 1000)) %>%
-    dplyr::mutate(Meldedatum = anydate(format(Meldedatum, '%Y/%m/%d')),
-           Datenstand = anytime(Datenstand)) %>%
-    dplyr::select(date = Meldedatum,
-                  id.state = IdBundesland,
-                  state = Bundesland,
+  dta.out <- dta %>%
+    dplyr::mutate(Meldedatum = anytime::anydate(Meldedatum / 1000),
+                  Datenstand = anytime::anydate(Datenstand)) %>%
+    dplyr::select(date        = Meldedatum,
+                  id.state    = IdBundesland,
+                  state       = Bundesland,
                   id.district = IdLandkreis,
-                  district = Landkreis,
-                  age.group = Altersgruppe,
-                  gender = Geschlecht,
-                  cases = AnzahlFall,
-                  deaths = AnzahlTodesfall,
-                  object.id = ObjectId,
+                  district    = Landkreis,
+                  age.group   = Altersgruppe,
+                  gender      = Geschlecht,
+                  cases       = AnzahlFall,
+                  deaths      = AnzahlTodesfall,
+                  object.id   = ObjectId,
                   last.update = Datenstand # removed as it will only show a meaningless date
                   ) %>%
-    dplyr::inner_join(rki.de.district.data::de.nuts.mapping %>% select(NUTS_3.code = NUTS_3, id.district),
-               by = c('id.district')) %>%
-    dplyr::mutate(NUTS_3 = eurostat::label_eurostat(NUTS_3.code, dic = 'geo')) %>%
-    return()
+    dplyr::inner_join(rki.de.district.data::de.nuts.mapping %>% dplyr::select(NUTS_3.code = NUTS_3, id.district),
+               by = c('id.district'))
+
+  return(dta.out)
 }
