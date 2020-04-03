@@ -12,6 +12,3 @@ table with map
 \description{
 Download district to nuts mapping
 }
-\examples{
-landkreis.mapping.raw()
-}

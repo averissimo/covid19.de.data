@@ -4,14 +4,14 @@
 \alias{update_dataset}
 \title{Update dataset}
 \usage{
-update_dataset()
+update_dataset(force.all = FALSE)
+}
+\arguments{
+\item{force.all}{force download of all data}
 }
 \value{
 nothing
 }
 \description{
 Update dataset
-}
-\examples{
-update_dataset()
 }

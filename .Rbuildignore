@@ -1,2 +1,9 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^vignettes\/\.nojekyll
+^vignettes\/_site\.yml
+^vignettes\/.*_files
+^README\.md
+^README_files
+^docs
+^.*\.sh

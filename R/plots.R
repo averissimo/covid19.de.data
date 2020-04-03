@@ -1,3 +1,11 @@
+#' Plot age distribution of federal states
+#'
+#' @param dat data
+#' @param var variable to separate
+#' @param filter.state keep only these
+#' @param title title of plot
+#'
+#' @return ggplot
 age.plot.state <- function(dat, var, filter.state, title) {
   pyramid <- dat %>%
     filter(length(filter.state) == 0 | state %in% filter.state) %>%
@@ -24,6 +32,14 @@ age.plot.state <- function(dat, var, filter.state, title) {
     facet_wrap(~state, ncol = 2)
 }
 
+#' Plot age distribution of districts
+#'
+#' @param dat data
+#' @param var variable to separate
+#' @param filter.district keep only these
+#' @param title title of plot
+#'
+#' @return ggplot
 age.plot.district <- function(dat, var, filter.district, title) {
   pyramid <- dat %>%
     filter(length(filter.district) == 0 | district %in% filter.district) %>%
@@ -50,6 +66,14 @@ age.plot.district <- function(dat, var, filter.district, title) {
     facet_wrap(~district, ncol = 2)
 }
 
+#' Show top 30 cases
+#'
+#' @param dat data
+#' @param case.type type of case
+#' @param region.code state or district
+#' @param n number to keep
+#'
+#' @return ggplot
 top30 <- function(dat, case.type, region.code, n = 30) {
   my.plot <- dat %>%
     filter(type == case.type) %>%
@@ -75,17 +99,13 @@ top30 <- function(dat, case.type, region.code, n = 30) {
 }
 
 
-#' Convrt to proper case
+#' Convert to proper case
 #'
 #' @param value confirmed or death strings
 #' @param capitalize capitalize only first word
 #' @param capitalize.all capitalize all words
 #'
 #' @return string with the proper mapping
-#'
-#' @examples
-#' proper.cases(c('death', 'confirmed'))
-#' proper.cases(c('death', 'confirmed'), capitalize = TRUE)
 proper.cases <- function(value, capitalize = FALSE, capitalize.all = FALSE) {
   val = (if_else(value == 'confirmed', 'confirmed cases', if_else(value == 'death', 'deaths', if_else(value == 'all', 'cases', value))))
   if (capitalize.all) {

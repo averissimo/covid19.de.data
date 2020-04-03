@@ -12,8 +12,6 @@ download.raw(offset = 0, max.record = 1000, exclude.ids = NULL)
 \item{max.record}{maximum number of records to download in call}
 
 \item{exclude.ids}{exclude ids from data}
-
-\item{id.state}{German state id (from 1 to 16)}
 }
 \value{
 data frame with data. Column names are translated from German

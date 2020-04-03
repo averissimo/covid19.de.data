@@ -22,5 +22,4 @@ identify_ranges(c(1:3, 5, 7:8, 10:12, 14:15))
 identify_ranges(c(1:3, 5, 7:8, 10:12, 14))
 identify_ranges(c(1, 5, 7:8, 10:12, 14))
 identify_ranges(c(1, 5, 7:8, 10:12, 14:19))
-identify_ranges(rki.covid19 \%>\% pull(object.id) \%>\% unique \%>\% sort)
 }

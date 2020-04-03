@@ -2,7 +2,7 @@
 % Please edit documentation in R/plots.R
 \name{proper.cases}
 \alias{proper.cases}
-\title{Convrt to proper case}
+\title{Convert to proper case}
 \usage{
 proper.cases(value, capitalize = FALSE, capitalize.all = FALSE)
 }
@@ -17,9 +17,5 @@ proper.cases(value, capitalize = FALSE, capitalize.all = FALSE)
 string with the proper mapping
 }
 \description{
-Convrt to proper case
-}
-\examples{
-proper.cases(c('death', 'confirmed'))
-proper.cases(c('death', 'confirmed'), capitalize = TRUE)
+Convert to proper case
 }

@@ -4,22 +4,16 @@
 \alias{download.state}
 \title{Download state specific data}
 \usage{
-download.state(existing.data = tibble::tibble(), max.record = 500)
+download.state(existing.data = tibble::tibble(), max.record = 1000)
 }
 \arguments{
+\item{existing.data}{data to be merged}
+
 \item{max.record}{maximum number of records to download on each HTTP GET call}
-
-\item{id.state}{number that goes from 1 to 16}
-
-\item{force.all}{force to get all data (ignoring already existing records on rki.covid19 data)}
 }
 \value{
 data frame with all the data. Column name are translated from German
 }
 \description{
 Download state specific data
-}
-\examples{
-download.state(1)
-download.state(2)
 }

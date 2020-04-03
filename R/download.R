@@ -2,9 +2,6 @@
 #'
 #' @return table with map
 #' @export
-#'
-#' @examples
-#' landkreis.mapping.raw()
 landkreis.mapping.raw <- function() {
   # build url for query
   url.base <- 'https://services7.arcgis.com'
@@ -120,11 +117,10 @@ add.factors <- function(dat) {
 
 #' Update dataset
 #'
+#' @param force.all force download of all data
+#'
 #' @return nothing
 #' @export
-#'
-#' @examples
-#' update_dataset()
 update_dataset <- function(force.all = FALSE) {
 
   rki.covid19 <- tibble::tibble()
@@ -185,7 +181,6 @@ range_write <- function(a, b) {
 #' identify_ranges(c(1:3, 5, 7:8, 10:12, 14))
 #' identify_ranges(c(1, 5, 7:8, 10:12, 14))
 #' identify_ranges(c(1, 5, 7:8, 10:12, 14:19))
-#' identify_ranges(rki.covid19 %>% pull(object.id) %>% unique %>% sort)
 identify_ranges <- function(dat, key.fun = range_write) {
   ranges <- c()
   if (length(dat) <= 1) {
@@ -220,16 +215,11 @@ identify_ranges <- function(dat, key.fun = range_write) {
 
 #' Download state specific data
 #'
-#' @param id.state number that goes from 1 to 16
+#' @param existing.data data to be merged
 #' @param max.record maximum number of records to download on each HTTP GET call
-#' @param force.all force to get all data (ignoring already existing records on rki.covid19 data)
 #'
 #' @return data frame with all the data. Column name are translated from German
 #' @export
-#'
-#' @examples
-#' download.state(1)
-#' download.state(2)
 download.state <- function(existing.data = tibble::tibble(), max.record = 1000) {
   dta     <- tibble::tibble()
   offset  <- 0
@@ -281,19 +271,28 @@ download.state <- function(existing.data = tibble::tibble(), max.record = 1000) 
     }
   }
 
-  nuts_cods.map <- eurostat::label_eurostat(dta.new$NUTS_3.code %>% unique, dic = 'geo')
-  names(nuts_cods.map) <- dta.new$NUTS_3.code %>% unique
+  if (dta.new %>% nrow() > 0) {
+    nuts_3_codes.map <- eurostat::label_eurostat(dta.new$NUTS_3.code %>% unique, dic = 'geo')
+
+    # If eurostat connection fails, use cache
+    if (any(is.na(nuts_3_codes.map))) {
+      nuts_3_codes.map <- rki.de.district.data::nuts_3_codes.map
+    } else {
+      names(nuts_cods.map) <- dta.new$NUTS_3.code %>% unique
+    }
+  }
 
   dta.new %>%
     mutate(NUTS_3 = nuts_cods.map[NUTS_3.code]) %>%
+    # add to existing data
     bind_rows(dta) %>%
+    # keep only latest update
     dplyr::filter(last.update == max(last.update)) %>%
     return()
 }
 
 #' Download call to ARCGIS
 #'
-#' @param id.state German state id (from 1 to 16)
 #' @param offset offset on number of records for call
 #' @param max.record maximum number of records to download in call
 #' @param exclude.ids exclude ids from data

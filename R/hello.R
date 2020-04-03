@@ -1,5 +1,4 @@
 #' @importFrom glue glue
+#' @importFrom dplyr %>%
 #' @import dplyr
-#' @import httr
-#' @import tibble
 NULL

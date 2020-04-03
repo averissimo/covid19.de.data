@@ -6,19 +6,23 @@ Author: André Veríssimo
 Maintainer: André Veríssimo <andre.verissimo@tecnico.ulisboa.pt>
 Description: Downloads Germany district data from the Robert Koch Institute
     It shows number by district and includes age groups and gender.
-License: MIT
+License: GPL (>= 3)
 Encoding: UTF-8
 Depends: R (>= 3.6)
 LazyData: true
-Imports: testthat (>= 2.1.0),
+Suggests:
   rmarkdown,
-  tidyverse,
+  knitr,
+  DT
+Imports: testthat (>= 2.1.0),
   rjson,
   glue,
-  DT,
   anytime,
+  loose.rock,
+  tibble,
   futile.logger,
   httr,
+  dplyr,
   ggrepel,
   ggthemes,
   viridis,

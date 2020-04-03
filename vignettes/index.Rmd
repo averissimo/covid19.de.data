@@ -6,6 +6,11 @@ output:
   html_document:
     toc: true
     dev: svg
+  rmarkdown::html_vignette:
+vignette: >
+  %\VignetteIndexEntry{COVID19PT}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, eval=FALSE, include=FALSE}

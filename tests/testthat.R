@@ -1,4 +1,4 @@
 library(testthat)
-library(rki.district.data)
+library(rki.de.district.data)
 
-test_check("rki.district.data")
+test_check("rki.de.district.data")
