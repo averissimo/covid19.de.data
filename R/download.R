@@ -278,14 +278,16 @@ download.state <- function(existing.data = tibble::tibble(), max.record = 1000) 
     if (any(is.na(nuts_3_codes.map))) {
       nuts_3_codes.map <- covid19.de.data::nuts_3_codes.map
     } else {
-      names(nuts_cods.map) <- dta.new$NUTS_3.code %>% unique
+      names(nuts_3_codes.map) <- dta.new$NUTS_3.code %>% unique
     }
+
+    dta.new <- dta.new %>%
+      mutate(NUTS_3 = nuts_3_codes.map[NUTS_3.code])
   }
 
-  dta.new %>%
-    mutate(NUTS_3 = nuts_cods.map[NUTS_3.code]) %>%
+  dta %>%
     # add to existing data
-    bind_rows(dta) %>%
+    bind_rows(dta.new) %>%
     # keep only latest update
     dplyr::filter(last.update == max(last.update)) %>%
     return()
