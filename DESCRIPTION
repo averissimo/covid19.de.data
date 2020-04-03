@@ -1,7 +1,7 @@
-Package: rki.de.district.data
+Package: covid19.de.data
 Type: Package
 Title: COVID-19 Germany data by state/district
-Version: 0.1.0
+Version: 0.1.1
 Author: André Veríssimo
 Maintainer: André Veríssimo <andre.verissimo@tecnico.ulisboa.pt>
 Description: Downloads Germany district data from the Robert Koch Institute

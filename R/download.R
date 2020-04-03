@@ -126,7 +126,7 @@ update_dataset <- function(force.all = FALSE) {
   rki.covid19 <- tibble::tibble()
 
   if (!force.all) {
-    tryCatch(rki.covid19 <- rki.de.district.data::rki.covid19,
+    tryCatch(rki.covid19 <- covid19.de.data::rki.covid19,
              error = function(err) { futile.logger::flog.debug('Error:: %s', err)})
   }
 
@@ -276,7 +276,7 @@ download.state <- function(existing.data = tibble::tibble(), max.record = 1000) 
 
     # If eurostat connection fails, use cache
     if (any(is.na(nuts_3_codes.map))) {
-      nuts_3_codes.map <- rki.de.district.data::nuts_3_codes.map
+      nuts_3_codes.map <- covid19.de.data::nuts_3_codes.map
     } else {
       names(nuts_cods.map) <- dta.new$NUTS_3.code %>% unique
     }
@@ -381,7 +381,7 @@ download.raw <- function(offset = 0, max.record = 1000, exclude.ids = NULL) {
                   object.id   = ObjectId,
                   last.update = Datenstand # removed as it will only show a meaningless date
                   ) %>%
-    dplyr::inner_join(rki.de.district.data::de.nuts.mapping %>% dplyr::select(NUTS_3.code = NUTS_3, id.district),
+    dplyr::inner_join(covid19.de.data::de.nuts.mapping %>% dplyr::select(NUTS_3.code = NUTS_3, id.district),
                by = c('id.district'))
 
   return(dta.out)

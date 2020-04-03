@@ -25,7 +25,6 @@ unlink('README_files', recursive = TRUE, force = TRUE)
 rmarkdown::render_site()
 ```
 
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, collapse = TRUE, fig.height=8, fig.width=10)
 library(tidyverse)
@@ -86,7 +85,7 @@ It can also be used as an *R package* by installing this repository directly:
 To retrieve the lastest yourself use the following function of the R package. 
 
 ```{r, eval=FALSE, echo=TRUE}
-> rki.de.district.data::update_dataset()
+> covid19.de.data::update_dataset()
 ```
 
 Note that, as of now, the data is updated by the Robert Koch Institute once a day.

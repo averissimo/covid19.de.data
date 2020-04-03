@@ -1,4 +1,4 @@
 library(testthat)
-library(rki.de.district.data)
+library(covid19.de.data)
 
-test_check("rki.de.district.data")
+test_check("covid19.de.data")
