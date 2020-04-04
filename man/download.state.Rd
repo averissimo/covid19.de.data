@@ -4,7 +4,11 @@
 \alias{download.state}
 \title{Download state specific data}
 \usage{
-download.state(existing.data = tibble::tibble(), max.record = 1000)
+download.state(
+  existing.data = tibble::tibble(),
+  max.record = 1000,
+  feature.server = "RKI_COVID19"
+)
 }
 \arguments{
 \item{existing.data}{data to be merged}

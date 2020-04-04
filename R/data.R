@@ -16,7 +16,7 @@
 #' head(nuts_3_codes.map)
 'nuts_3_codes.map'
 
-#' Robert Koch's Institute data for districts in Germany
+#' Robert Koch's Institute data for districts in Germany (by age/gender)
 #'
 #' @name rki.covid19
 #' @docType data
@@ -24,3 +24,12 @@
 #' @examples
 #' head(rki.covid19)
 'rki.covid19'
+
+#' Robert Koch's Institute data for districts in Germany
+#'
+#' @name rki.covid19
+#' @docType data
+#' @keywords data
+#' @examples
+#' head(rki.covid19)
+'rki.covid19.no.age'

@@ -3,17 +3,25 @@
 \docType{data}
 \name{rki.covid19}
 \alias{rki.covid19}
-\title{Robert Koch's Institute data for districts in Germany}
+\alias{rki.covid19.no.age}
+\title{Robert Koch's Institute data for districts in Germany (by age/gender)}
 \format{
 An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 32436 rows and 13 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 27604 rows and 11 columns.
 }
 \usage{
 rki.covid19
+
+rki.covid19.no.age
 }
 \description{
+Robert Koch's Institute data for districts in Germany (by age/gender)
+
 Robert Koch's Institute data for districts in Germany
 }
 \examples{
+head(rki.covid19)
 head(rki.covid19)
 }
 \keyword{data}

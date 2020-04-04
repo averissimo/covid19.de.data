@@ -4,7 +4,12 @@
 \alias{download.raw}
 \title{Download call to ARCGIS}
 \usage{
-download.raw(offset = 0, max.record = 1000, exclude.ids = NULL)
+download.raw(
+  offset = 0,
+  max.record = 1000,
+  exclude.ids = NULL,
+  feature.server = "RKI_COVID19"
+)
 }
 \arguments{
 \item{offset}{offset on number of records for call}
@@ -18,4 +23,7 @@ data frame with data. Column names are translated from German
 }
 \description{
 Download call to ARCGIS
+}
+\examples{
+download.raw(feature.server = 'Covid19_RKI_Sums')
 }
