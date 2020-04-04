@@ -93,13 +93,13 @@ Note that, as of now, the data is updated by the Robert Koch Institute once a da
 
 ```{r, include=FALSE}
 rki.covid19.tmp <- update_dataset()
-rki.covid19.tmp2 <- update_dataset.no.age()
+rki.covid19.tmp2 <- update_dataset.no.age(force.all = TRUE)
 ```
 
 ```{r, include=FALSE}
 data('rki.covid19.no.age')
-if (!exists('rki.covid19.no.age') || (!all(rki.covid19.tmp$object.id %in% rki.covid19.no.age$object.id))) {
-  rki.covid19.no.age <- rki.covid19.tmp
+if (!exists('rki.covid19.no.age') || (!all(rki.covid19.tmp2$object.id %in% rki.covid19.no.age$object.id))) {
+  rki.covid19.no.age <- rki.covid19.tmp2
   usethis::use_data(rki.covid19.no.age, overwrite = TRUE)
   write_csv2(rki.covid19.no.age, path = '../data/rki.covid19_no_age.csv')
 }

@@ -332,8 +332,8 @@ download.state <- function(existing.data = tibble::tibble(), max.record = 1000, 
                       state       = Bundesland,
                       id.district = IdLandkreis,
                       district    = Landkreis,
-                      cases       = AnzahlFall,
-                      deaths      = AnzahlTodesfall,
+                      cases.sum   = SummeFall,
+                      deaths.sum  = SummeTodesfall,
                       object.id   = ObjectId,
                       last.update = Datenstand # removed as it will only show a meaningless date
         ) %>%
