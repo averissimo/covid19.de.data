@@ -91,7 +91,7 @@ covid19.de.data::update_dataset()
 Note that, as of now, the data is updated by the Robert Koch Institute once a day.
 
 ```{r, include=FALSE}
-rki.covid19.tmp <- update_dataset()
+rki.covid19.tmp <- update_dataset(force.all = TRUE)
 ```
 
 ```{r, include=FALSE}

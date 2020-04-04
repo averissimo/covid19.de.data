@@ -271,23 +271,41 @@ download.state <- function(existing.data = tibble::tibble(), max.record = 1000) 
     }
   }
 
-  if (dta.new %>% nrow() > 0) {
-    nuts_3_codes.map <- eurostat::label_eurostat(dta.new$NUTS_3.code %>% unique, dic = 'geo')
+  dta.new.norm <- dta.new %>%
+    dplyr::mutate(Meldedatum = anytime::anydate(Meldedatum / 1000),
+                  Datenstand = str_replace(Datenstand, '([0-9]+)\\.([0-9]+)\\.([0-9]+).*','\\3-\\2-\\1') %>% anytime::anydate()) %>%
+    dplyr::select(date        = Meldedatum,
+                  id.state    = IdBundesland,
+                  state       = Bundesland,
+                  id.district = IdLandkreis,
+                  district    = Landkreis,
+                  age.group   = Altersgruppe,
+                  gender      = Geschlecht,
+                  cases       = AnzahlFall,
+                  deaths      = AnzahlTodesfall,
+                  object.id   = ObjectId,
+                  last.update = Datenstand # removed as it will only show a meaningless date
+    ) %>%
+    dplyr::inner_join(covid19.de.data::de.nuts.mapping %>% dplyr::select(NUTS_3.code = NUTS_3, id.district),
+                      by = c('id.district'))
+
+  if (dta.new.norm %>% nrow() > 0) {
+    nuts_3_codes.map <- eurostat::label_eurostat(dta.new.norm$NUTS_3.code %>% unique, dic = 'geo')
 
     # If eurostat connection fails, use cache
     if (any(is.na(nuts_3_codes.map))) {
       nuts_3_codes.map <- covid19.de.data::nuts_3_codes.map
     } else {
-      names(nuts_3_codes.map) <- dta.new$NUTS_3.code %>% unique
+      names(nuts_3_codes.map) <- dta.new.norm$NUTS_3.code %>% unique
     }
 
-    dta.new <- dta.new %>%
+    dta.new.norm <- dta.new.norm %>%
       mutate(NUTS_3 = nuts_3_codes.map[NUTS_3.code])
   }
 
   dta %>%
     # add to existing data
-    bind_rows(dta.new) %>%
+    bind_rows(dta.new.norm) %>%
     # keep only latest update
     dplyr::filter(last.update == max(last.update)) %>%
     return()
@@ -368,23 +386,5 @@ download.raw <- function(offset = 0, max.record = 1000, exclude.ids = NULL) {
     dta <- dplyr::bind_rows(dta, new.line)
   }
 
-  dta.out <- dta %>%
-    dplyr::mutate(Meldedatum = anytime::anydate(Meldedatum / 1000),
-                  Datenstand = anytime::anydate(Datenstand)) %>%
-    dplyr::select(date        = Meldedatum,
-                  id.state    = IdBundesland,
-                  state       = Bundesland,
-                  id.district = IdLandkreis,
-                  district    = Landkreis,
-                  age.group   = Altersgruppe,
-                  gender      = Geschlecht,
-                  cases       = AnzahlFall,
-                  deaths      = AnzahlTodesfall,
-                  object.id   = ObjectId,
-                  last.update = Datenstand # removed as it will only show a meaningless date
-                  ) %>%
-    dplyr::inner_join(covid19.de.data::de.nuts.mapping %>% dplyr::select(NUTS_3.code = NUTS_3, id.district),
-               by = c('id.district'))
-
-  return(dta.out)
+  return(dta)
 }
