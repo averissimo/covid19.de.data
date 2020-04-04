@@ -121,6 +121,9 @@ add.factors <- function(dat) {
 #'
 #' @return nothing
 #' @export
+#'
+#' @examples
+#' update_dataset.no.age()
 update_dataset.no.age <- function(force.all = FALSE) {
 
   rki.covid19.no.age <- tibble::tibble()
@@ -158,7 +161,7 @@ update_dataset <- function(force.all = FALSE) {
   }
 
   rki.covid19.tmp <- tibble::tibble()
-  rki.covid19.tmp <- download.state(rki.covid19)
+  rki.covid19.tmp <- download.state(rki.covid19, feature.server = 'RKI_COVID19')
 
   if (!exists('rki.covid19') || !any(names(rki.covid19) == 'object.id') || (!all(rki.covid19.tmp$object.id %in% rki.covid19$object.id))) {
     futile.logger::flog.info('Data returned from this function was updated.')
@@ -275,7 +278,10 @@ download.state <- function(existing.data = tibble::tibble(), max.record = 1000, 
 
   # Download chunks of 500
   while (!stop.me) {
-    dta.tmp <- download.raw(offset = offset, max.record = max.record, exclude.ids = exclude.ids, feature.server = feature.server)
+    dta.tmp <- download.raw(offset = offset,
+                            max.record = max.record,
+                            exclude.ids = exclude.ids,
+                            feature.server = feature.server)
 
     if (nrow(dta.tmp) == 0) {
       futile.logger::flog.debug('No rows returned (offset = %d, max.record = %d)\n  Stopping...', offset, max.record)
@@ -295,42 +301,45 @@ download.state <- function(existing.data = tibble::tibble(), max.record = 1000, 
     }
   }
 
-  if (feature.server == 'RKI_COVID19') {
-    dta.new.norm <- dta.new %>%
-      dplyr::mutate(Meldedatum = anytime::anydate(Meldedatum / 1000),
-                    Datenstand = stringr::str_replace(Datenstand, '([0-9]+)\\.([0-9]+)\\.([0-9]+).*','\\3-\\2-\\1') %>% anytime::anydate()) %>%
-      dplyr::select(date        = Meldedatum,
-                    id.state    = IdBundesland,
-                    state       = Bundesland,
-                    id.district = IdLandkreis,
-                    district    = Landkreis,
-                    age.group   = Altersgruppe,
-                    gender      = Geschlecht,
-                    cases       = AnzahlFall,
-                    deaths      = AnzahlTodesfall,
-                    object.id   = ObjectId,
-                    last.update = Datenstand # removed as it will only show a meaningless date
-      ) %>%
-      dplyr::inner_join(covid19.de.data::de.nuts.mapping %>% dplyr::select(NUTS_3.code = NUTS_3, id.district),
-                        by = c('id.district'))
-  #
-  #
-  } else if (feature.server == 'Covid19_RKI_Sums') {
-    dta.new.norm <- dta.new %>%
-      dplyr::mutate(Meldedatum = anytime::anydate(Meldedatum / 1000),
-                    Datenstand = stringr::str_replace(Datenstand, '([0-9]+)\\.([0-9]+)\\.([0-9]+).*','\\3-\\2-\\1') %>% anytime::anydate()) %>%
-      dplyr::select(date        = Meldedatum,
-                    id.state    = IdBundesland,
-                    state       = Bundesland,
-                    id.district = IdLandkreis,
-                    district    = Landkreis,
-                    cases       = AnzahlFall,
-                    deaths      = AnzahlTodesfall,
-                    object.id   = ObjectId,
-                    last.update = Datenstand # removed as it will only show a meaningless date
-      ) %>%
-      dplyr::inner_join(covid19.de.data::de.nuts.mapping %>% dplyr::select(NUTS_3.code = NUTS_3, id.district),
-                        by = c('id.district'))
+  dta.new.norm <- tibble::tibble()
+  if (nrow(dta.new) > 0) {
+    if (feature.server == 'RKI_COVID19') {
+      dta.new.norm <- dta.new %>%
+        dplyr::mutate(Meldedatum = anytime::anydate(Meldedatum / 1000),
+                      Datenstand = stringr::str_replace(Datenstand, '([0-9]+)\\.([0-9]+)\\.([0-9]+).*','\\3-\\2-\\1') %>% anytime::anydate()) %>%
+        dplyr::select(date        = Meldedatum,
+                      id.state    = IdBundesland,
+                      state       = Bundesland,
+                      id.district = IdLandkreis,
+                      district    = Landkreis,
+                      age.group   = Altersgruppe,
+                      gender      = Geschlecht,
+                      cases       = AnzahlFall,
+                      deaths      = AnzahlTodesfall,
+                      object.id   = ObjectId,
+                      last.update = Datenstand # removed as it will only show a meaningless date
+        ) %>%
+        dplyr::inner_join(covid19.de.data::de.nuts.mapping %>% dplyr::select(NUTS_3.code = NUTS_3, id.district),
+                          by = c('id.district'))
+    #
+    #
+    } else if (feature.server == 'Covid19_RKI_Sums') {
+      dta.new.norm <- dta.new %>%
+        dplyr::mutate(Meldedatum = anytime::anydate(Meldedatum / 1000),
+                      Datenstand = stringr::str_replace(Datenstand, '([0-9]+)\\.([0-9]+)\\.([0-9]+).*','\\3-\\2-\\1') %>% anytime::anydate()) %>%
+        dplyr::select(date        = Meldedatum,
+                      id.state    = IdBundesland,
+                      state       = Bundesland,
+                      id.district = IdLandkreis,
+                      district    = Landkreis,
+                      cases       = AnzahlFall,
+                      deaths      = AnzahlTodesfall,
+                      object.id   = ObjectId,
+                      last.update = Datenstand # removed as it will only show a meaningless date
+        ) %>%
+        dplyr::inner_join(covid19.de.data::de.nuts.mapping %>% dplyr::select(NUTS_3.code = NUTS_3, id.district),
+                          by = c('id.district'))
+    }
   }
 
 
