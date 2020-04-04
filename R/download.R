@@ -121,6 +121,33 @@ add.factors <- function(dat) {
 #'
 #' @return nothing
 #' @export
+update_dataset.no.age <- function(force.all = FALSE) {
+
+  rki.covid19.no.age <- tibble::tibble()
+
+  if (!force.all) {
+    tryCatch(rki.covid19.no.age <- covid19.de.data::rki.covid19.no.age,
+             error = function(err) { futile.logger::flog.debug('Error:: %s', err)})
+  }
+
+  rki.covid19.tmp <- tibble::tibble()
+  rki.covid19.tmp <- download.state(rki.covid19.no.age, feature.server = 'Covid19_RKI_Sums')
+
+  if (!exists('rki.covid19.no.age') || !any(names(rki.covid19.no.age) == 'object.id') ||
+      (!all(rki.covid19.tmp$object.id %in% rki.covid19.no.age$object.id))) {
+    futile.logger::flog.info('Data returned from this function was updated.')
+  } else {
+    futile.logger::flog.info('Data is up to date, nothing to do...')
+  }
+  return(rki.covid19.tmp)
+}
+
+#' Update dataset
+#'
+#' @param force.all force download of all data
+#'
+#' @return nothing
+#' @export
 update_dataset <- function(force.all = FALSE) {
 
   rki.covid19 <- tibble::tibble()
@@ -132,9 +159,6 @@ update_dataset <- function(force.all = FALSE) {
 
   rki.covid19.tmp <- tibble::tibble()
   rki.covid19.tmp <- download.state(rki.covid19)
-
-  rki.covid19.tmp <- rki.covid19.tmp %>%
-    arrange(desc(date))
 
   if (!exists('rki.covid19') || !any(names(rki.covid19) == 'object.id') || (!all(rki.covid19.tmp$object.id %in% rki.covid19$object.id))) {
     futile.logger::flog.info('Data returned from this function was updated.')
@@ -220,7 +244,7 @@ identify_ranges <- function(dat, key.fun = range_write) {
 #'
 #' @return data frame with all the data. Column name are translated from German
 #' @export
-download.state <- function(existing.data = tibble::tibble(), max.record = 1000) {
+download.state <- function(existing.data = tibble::tibble(), max.record = 1000, feature.server = 'RKI_COVID19') {
   dta     <- tibble::tibble()
   offset  <- 0
   stop.me <- FALSE
@@ -251,7 +275,7 @@ download.state <- function(existing.data = tibble::tibble(), max.record = 1000) 
 
   # Download chunks of 500
   while (!stop.me) {
-    dta.tmp <- download.raw(offset = offset, max.record = max.record, exclude.ids = exclude.ids)
+    dta.tmp <- download.raw(offset = offset, max.record = max.record, exclude.ids = exclude.ids, feature.server = feature.server)
 
     if (nrow(dta.tmp) == 0) {
       futile.logger::flog.debug('No rows returned (offset = %d, max.record = %d)\n  Stopping...', offset, max.record)
@@ -271,23 +295,44 @@ download.state <- function(existing.data = tibble::tibble(), max.record = 1000) 
     }
   }
 
-  dta.new.norm <- dta.new %>%
-    dplyr::mutate(Meldedatum = anytime::anydate(Meldedatum / 1000),
-                  Datenstand = str_replace(Datenstand, '([0-9]+)\\.([0-9]+)\\.([0-9]+).*','\\3-\\2-\\1') %>% anytime::anydate()) %>%
-    dplyr::select(date        = Meldedatum,
-                  id.state    = IdBundesland,
-                  state       = Bundesland,
-                  id.district = IdLandkreis,
-                  district    = Landkreis,
-                  age.group   = Altersgruppe,
-                  gender      = Geschlecht,
-                  cases       = AnzahlFall,
-                  deaths      = AnzahlTodesfall,
-                  object.id   = ObjectId,
-                  last.update = Datenstand # removed as it will only show a meaningless date
-    ) %>%
-    dplyr::inner_join(covid19.de.data::de.nuts.mapping %>% dplyr::select(NUTS_3.code = NUTS_3, id.district),
-                      by = c('id.district'))
+  if (feature.server == 'RKI_COVID19') {
+    dta.new.norm <- dta.new %>%
+      dplyr::mutate(Meldedatum = anytime::anydate(Meldedatum / 1000),
+                    Datenstand = stringr::str_replace(Datenstand, '([0-9]+)\\.([0-9]+)\\.([0-9]+).*','\\3-\\2-\\1') %>% anytime::anydate()) %>%
+      dplyr::select(date        = Meldedatum,
+                    id.state    = IdBundesland,
+                    state       = Bundesland,
+                    id.district = IdLandkreis,
+                    district    = Landkreis,
+                    age.group   = Altersgruppe,
+                    gender      = Geschlecht,
+                    cases       = AnzahlFall,
+                    deaths      = AnzahlTodesfall,
+                    object.id   = ObjectId,
+                    last.update = Datenstand # removed as it will only show a meaningless date
+      ) %>%
+      dplyr::inner_join(covid19.de.data::de.nuts.mapping %>% dplyr::select(NUTS_3.code = NUTS_3, id.district),
+                        by = c('id.district'))
+  #
+  #
+  } else if (feature.server == 'Covid19_RKI_Sums') {
+    dta.new.norm <- dta.new %>%
+      dplyr::mutate(Meldedatum = anytime::anydate(Meldedatum / 1000),
+                    Datenstand = stringr::str_replace(Datenstand, '([0-9]+)\\.([0-9]+)\\.([0-9]+).*','\\3-\\2-\\1') %>% anytime::anydate()) %>%
+      dplyr::select(date        = Meldedatum,
+                    id.state    = IdBundesland,
+                    state       = Bundesland,
+                    id.district = IdLandkreis,
+                    district    = Landkreis,
+                    cases       = AnzahlFall,
+                    deaths      = AnzahlTodesfall,
+                    object.id   = ObjectId,
+                    last.update = Datenstand # removed as it will only show a meaningless date
+      ) %>%
+      dplyr::inner_join(covid19.de.data::de.nuts.mapping %>% dplyr::select(NUTS_3.code = NUTS_3, id.district),
+                        by = c('id.district'))
+  }
+
 
   if (dta.new.norm %>% nrow() > 0) {
     nuts_3_codes.map <- eurostat::label_eurostat(dta.new.norm$NUTS_3.code %>% unique, dic = 'geo')
@@ -318,7 +363,9 @@ download.state <- function(existing.data = tibble::tibble(), max.record = 1000) 
 #' @param exclude.ids exclude ids from data
 #'
 #' @return data frame with data. Column names are translated from German
-download.raw <- function(offset = 0, max.record = 1000, exclude.ids = NULL) {
+#' @examples
+#' download.raw(feature.server = 'Covid19_RKI_Sums')
+download.raw <- function(offset = 0, max.record = 1000, exclude.ids = NULL, feature.server = 'RKI_COVID19') {
   # build query
   if (is.null(exclude.ids)) {
     query <- 'IdBundesland > 0'
@@ -330,7 +377,7 @@ download.raw <- function(offset = 0, max.record = 1000, exclude.ids = NULL) {
   # build url for query
   url.base <- 'https://services7.arcgis.com'
   url.key  <- 'mOBPykOjAyBO2ZKk'
-  url.path <- 'arcgis/rest/services/RKI_COVID19/FeatureServer/0/query'
+  url.path <- 'arcgis/rest/services/{feature.server}/FeatureServer/0/query' %>% glue::glue()
   url.query = list(
     outStatistics ='',
     having = '',
