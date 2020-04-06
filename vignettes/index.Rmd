@@ -15,7 +15,7 @@ vignette: >
 
 ```{r, eval=FALSE, include=FALSE}
 rmarkdown::render('index.Rmd', output_format = rmarkdown::github_document(), output_file = 'README.md')
-unlink('../README.md')
+  unlink('../README.md')
 unlink('../README_files', recursive = TRUE, force = TRUE)
 file.copy('README.md', '../README.md')
 file.copy('README_files', '..', recursive = TRUE, overwrite = TRUE)
@@ -132,6 +132,32 @@ last.date.string <- 'Latest data from {my.rki %>% pull(date) %>% max}' %>% glue
 ```
 
 ## Data visualization
+
+### Cases by age groups {.tabset .tabset-fade .tabset-pills}
+
+#### Cases in states
+
+```{r}
+age.plot.state(my.rki, 'cases', top.states %>% head(8), 'Cases in States')
+```
+
+#### Deaths in states
+
+```{r}
+age.plot.state(my.rki, 'deaths', top.states %>% head(8), 'Deaths in States')
+```
+
+#### Cases in districts
+
+```{r}
+age.plot.district(my.rki, 'cases', top.districts %>% head(8), 'Number of Cases')
+```
+
+#### Deaths in districts
+
+```{r}
+age.plot.district(my.rki, 'deaths', top.districts %>% head(8), 'Number of Deaths')
+```
 
 ### Cases by Federal State {.tabset .tabset-fade .tabset-pills}
 
@@ -379,32 +405,5 @@ my.rki %>%
     labs(title = 'Total deaths per day in last 12 days', y = 'Total Deaths', x = 'Day',
          subtitle = 'Showing only 8 most affected districts')
 ```
-
-### Cases by age groups {.tabset .tabset-fade .tabset-pills}
-
-#### Cases in states
-
-```{r}
-age.plot.state(my.rki, 'cases', top.states %>% head(8), 'Cases in States')
-```
-
-#### Deaths in states
-
-```{r}
-age.plot.state(my.rki, 'deaths', top.states %>% head(8), 'Deaths in States')
-```
-
-#### Cases in districts
-
-```{r}
-age.plot.district(my.rki, 'cases', top.districts %>% head(8), 'Number of Cases')
-```
-
-#### Deaths in districts
-
-```{r}
-age.plot.district(my.rki, 'deaths', top.districts %>% head(8), 'Number of Deaths')
-```
-
 
 
