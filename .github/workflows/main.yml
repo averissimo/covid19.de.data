@@ -1,0 +1,30 @@
+on: 
+  push:
+    paths:
+    - 'vignettes/index.Rmd'
+
+jobs:
+  build_rmd_site:
+    runs-on: ubuntu-latest
+    name: Build Rmd Site
+    steps:
+    - name: Checkout current repo
+      uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.token }}
+        path: repo
+    - name: Get current directory and files
+      run: |
+        pwd
+        ls repo
+    - name: Build html
+      id: hello
+      uses: averissimo/buid-r-docker-action@master
+    # Use the output from the `hello` step
+    - name: Commit changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add docs
+        git commit -m "Update site" || echo "Nothing to update"
+        git status

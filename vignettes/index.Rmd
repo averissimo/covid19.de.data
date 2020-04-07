@@ -6,7 +6,6 @@ output:
   html_document:
     toc: true
     dev: svg
-  rmarkdown::html_vignette:
 vignette: >
   %\VignetteIndexEntry{COVID19PT}
   %\VignetteEngine{knitr::rmarkdown}
@@ -22,7 +21,7 @@ file.copy('README_files', '..', recursive = TRUE, overwrite = TRUE)
 unlink('README.md')
 unlink('README.html')
 unlink('README_files', recursive = TRUE, force = TRUE)
-rmarkdown::render_site()
+rmarkdown::render_site(output_format = rmarkdown::html_document())
 ```
 
 ```{r setup, include=FALSE}
