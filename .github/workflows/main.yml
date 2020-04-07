@@ -23,6 +23,7 @@ jobs:
     # Use the output from the `hello` step
     - name: Commit changes
       run: |
+        cd repo
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add docs
