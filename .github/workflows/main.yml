@@ -24,6 +24,7 @@ jobs:
     - name: Commit changes
       run: |
         cd repo
+        ls
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add docs
