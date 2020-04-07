@@ -29,7 +29,7 @@ jobs:
         ls
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add docs README.md README_files
+        git add docs README.md README_files data
         git commit -m "Update site" || echo "Nothing to update"
         git status
     - name: Push changes
