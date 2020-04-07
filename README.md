@@ -15,7 +15,8 @@ daily.
 Source code available at
 [averissimo/covid19-rki\_de-data](https://github.com/averissimo/covid19.de.data).
 
-**Other covid-19 related:**
+**Other covid-19
+    related:**
 
   - [World](https://averissimo.github.io/covid19-analysis/)
   - [Germany](https://averissimo.github.io/covid19-analysis/germany.html)
@@ -49,7 +50,8 @@ covid19.de.data::update_dataset.no.age()
 ```
 
 Note that, as of now, the data is updated by the Robert Koch Institute
-once a day.
+once a
+day.
 
 ## Data visualization
 
