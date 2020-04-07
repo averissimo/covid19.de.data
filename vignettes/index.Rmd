@@ -46,6 +46,9 @@ Sys.setlocale('LC_TIME', 'en_GB.UTF-8')
 devtools::load_all()
 ```
 
+
+
+
 > COVID-19 District level data from Robert Koch Institute in Germany
 
 The data is updated daily and is downloaded from a ARCGIS REST API using the [RKI_COVID19](https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_COVID19/FeatureServer/0/query?where=Meldedatum+%3E+(CURRENT_TIMESTAMP+-+3)&objectIds=&time=&resultType=none&outFields=*&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnDistinctValues=false&cacheHint=false&orderByFields=Meldedatum&outStatistics=&having=&resultOffset=&resultRecordCount=&sqlFormat=none&f=html&token=) feature server.

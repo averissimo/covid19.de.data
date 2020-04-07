@@ -30,3 +30,9 @@ jobs:
         git add docs
         git commit -m "Update site" || echo "Nothing to update"
         git status
+    - name: Push changes
+      uses: ad-m/github-push-action@fe38f0a751bf9149f0270cc1fe20bf9156854365
+      with:
+        directory: repo
+        repository: averissimo/covid19.de.data
+        github_token: ${{ secrets.token }}
