@@ -15,14 +15,13 @@ daily.
 Source code available at
 [averissimo/covid19-rki\_de-data](https://github.com/averissimo/covid19.de.data).
 
-**Other covid-19
-    related:**
+**Other covid-19 related:**
 
   - [World](https://averissimo.github.io/covid19-analysis/)
   - [Germany](https://averissimo.github.io/covid19-analysis/germany.html)
     *(by state)*
   - [Italy](https://averissimo.github.io/covid19-analysis/italy.html)
-    *(by regione)*
+    *(by region)*
   - [Bavaria](https://averissimo.github.io/covid19-analysis/bayer.html)
     *(Germany)*
 
@@ -50,8 +49,7 @@ covid19.de.data::update_dataset.no.age()
 ```
 
 Note that, as of now, the data is updated by the Robert Koch Institute
-once a
-day.
+once a day.
 
 ## Data visualization
 
@@ -59,29 +57,29 @@ day.
 
 #### Cases in states
 
-![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](README_files/figure-gfm/age.state.cases-1.svg)<!-- -->
 
 #### Deaths in states
 
-![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](README_files/figure-gfm/age.state.deaths-1.svg)<!-- -->
 
 #### Cases in districts
 
-![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](README_files/figure-gfm/age.district.cases-1.svg)<!-- -->
 
 #### Deaths in districts
 
-![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](README_files/figure-gfm/age.district.-1.svg)<!-- -->
 
 ### Cases by Federal State
 
 #### Confirmed cases
 
-![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](README_files/figure-gfm/bar_plot_cases_state-1.svg)<!-- -->
 
 #### Deaths
 
-![](README_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+![](README_files/figure-gfm/bar_plot_deaths_state-1.svg)<!-- -->
 
 ### Cases by Districts *(Showing only 50 districts with most cases/deaths)*
 
@@ -89,52 +87,52 @@ day.
 
 *Showing only 50*
 
-![](README_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](README_files/figure-gfm/bar_plot_cases_district-1.svg)<!-- -->
 
 #### Deaths
 
 *Showing only 50*
 
-![](README_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+![](README_files/figure-gfm/bar_plot_death_district-1.svg)<!-- -->
 
 ### New cases/deaths per day *in most affected states/districts*
 
 #### New Cases in states
 
-![](README_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](README_files/figure-gfm/new_cases_states-1.svg)<!-- -->
 
 #### New Deaths in states
 
-![](README_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+![](README_files/figure-gfm/new_deaths_states-1.svg)<!-- -->
 
 #### New cases in districts
 
-![](README_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](README_files/figure-gfm/new_cases_districts-1.svg)<!-- -->
 
 #### New deaths in districts
 
-![](README_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+![](README_files/figure-gfm/new_deaths_districts-1.svg)<!-- -->
 
 ### Total cases in last 12 days *in most affected states/districts*
 
 #### Total cases in states
 
-![](README_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+![](README_files/figure-gfm/total_cases_states-1.svg)<!-- -->
 
 #### Total deaths in states
 
 Showing only 6 states most affected
 
-![](README_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+![](README_files/figure-gfm/total_deaths_states-1.svg)<!-- -->
 
 #### Total cases in districs
 
 Showing only 6 districs most affected
 
-![](README_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
+![](README_files/figure-gfm/total_cases_districts-1.svg)<!-- -->
 
 #### Total deaths in districs
 
 Showing only 6 districs most affected
 
-![](README_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
+![](README_files/figure-gfm/total_deaths_districts-1.svg)<!-- -->
