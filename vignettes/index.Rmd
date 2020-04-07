@@ -6,22 +6,17 @@ output:
   html_document:
     toc: true
     dev: svg
-vignette: >
-  %\VignetteIndexEntry{COVID19PT}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+    self_contained: false
 ---
 
 ```{r, eval=FALSE, include=FALSE}
-rmarkdown::render('index.Rmd', output_format = rmarkdown::github_document(), output_file = 'README.md')
-  unlink('../README.md')
-unlink('../README_files', recursive = TRUE, force = TRUE)
-file.copy('README.md', '../README.md')
-file.copy('README_files', '..', recursive = TRUE, overwrite = TRUE)
-unlink('README.md')
-unlink('README.html')
-unlink('README_files', recursive = TRUE, force = TRUE)
-rmarkdown::render_site(output_format = rmarkdown::html_document())
+rmarkdown::render('_README.Rmd', output_format = 'github_document', output_file = 'README.md')
+if (file.exists(file.path('README.html')) { unlink('README.html') }
+if (file.exists(file.path('..', 'README.md')) { unlink('../README.md') }
+if (dir.exists(file.path('..', 'README_files')) { unlink('../README.md', recursive = TRUE, force = TRUE) }
+file.rename('README.md', '../README.md')
+file.rename('README_files', '../README_files')
+rmarkdown::render_site(output_format = 'html_document')
 ```
 
 ```{r setup, include=FALSE}
@@ -88,7 +83,7 @@ covid19.de.data::update_dataset.no.age()
 
 Note that, as of now, the data is updated by the Robert Koch Institute once a day.
 
-```{r, include=FALSE}
+```{r update_datasetss, include=FALSE}
 rki.covid19.tmp <- update_dataset()
 rki.covid19.tmp2 <- update_dataset.no.age(force.all = TRUE)
 ```
@@ -134,25 +129,25 @@ last.date.string <- 'Latest data from {my.rki %>% pull(date) %>% max}' %>% glue
 
 #### Cases in states
 
-```{r}
+```{r age.state.cases}
 age.plot.state(my.rki, 'cases', top.states %>% head(8), 'Cases in States')
 ```
 
 #### Deaths in states
 
-```{r}
+```{r age.state.deaths}
 age.plot.state(my.rki, 'deaths', top.states %>% head(8), 'Deaths in States')
 ```
 
 #### Cases in districts
 
-```{r}
+```{r age.district.cases}
 age.plot.district(my.rki, 'cases', top.districts %>% head(8), 'Number of Cases')
 ```
 
 #### Deaths in districts
 
-```{r}
+```{r age.district.}
 age.plot.district(my.rki, 'deaths', top.districts %>% head(8), 'Number of Deaths')
 ```
 
@@ -160,7 +155,7 @@ age.plot.district(my.rki, 'deaths', top.districts %>% head(8), 'Number of Deaths
 
 #### Confirmed cases
 
-```{r}
+```{r bar_plot_cases_state}
 sum.rki <- my.rki %>% 
   group_by(state) %>% 
   summarise(cases = sum(cases), deaths = sum(deaths)) %>% 
@@ -171,7 +166,7 @@ top30(sum.rki, 'confirmed', 'Federal State')
 
 #### Deaths
 
-```{r}
+```{r bar_plot_deaths_state}
 top30(sum.rki, 'death', 'Federal State')
 ```
 
@@ -181,7 +176,7 @@ top30(sum.rki, 'death', 'Federal State')
 
 *Showing only 50*
 
-```{r}
+```{r bar_plot_cases_district}
 sum.rki.dist <- my.rki %>% 
   group_by(district) %>% 
   summarise(cases = sum(cases), deaths = sum(deaths)) %>% 
@@ -196,7 +191,7 @@ top30(sum.rki.dist, 'confirmed', 'District', 50)
 
 *Showing only 50*
 
-```{r}
+```{r bar_plot_death_district}
 top30(sum.rki.dist, 'death', 'District', 50)
 ```
 
@@ -205,7 +200,7 @@ top30(sum.rki.dist, 'death', 'District', 50)
 
 #### New Cases in states
 
-```{r}
+```{r new_cases_states}
 my.rki %>% 
   filter(state %in% (top.states %>% head(8))) %>%
   filter(anydate(base::date()) - date <= 12) %>% 
@@ -229,7 +224,7 @@ my.rki %>%
 
 #### New Deaths in states
 
-```{r}
+```{r new_deaths_states}
 my.rki %>% 
   filter(state %in% (top.states %>% head(8))) %>%
   filter(anydate(base::date()) - date <= 12) %>% 
@@ -253,7 +248,7 @@ my.rki %>%
 
 #### New cases in districts
 
-```{r}
+```{r new_cases_districts}
 my.rki %>% 
   filter(district %in% (top.districts %>% head(8))) %>%
   filter(anydate(base::date()) - date <= 12) %>% 
@@ -277,7 +272,7 @@ my.rki %>%
 
 #### New deaths in districts
 
-```{r}
+```{r new_deaths_districts}
 my.rki %>% 
   filter(district %in% (top.districts %>% head(8))) %>%
   filter(anydate(base::date()) - date <= 12) %>% 
@@ -303,7 +298,7 @@ my.rki %>%
 
 #### Total cases in states
 
-```{r}
+```{r total_cases_states}
 my.rki %>% 
   filter(state %in% (top.states %>% head(8))) %>%
   filter(anydate(base::date()) - date <= 12) %>% 
@@ -329,7 +324,7 @@ my.rki %>%
 
 Showing only 6 states most affected
 
-```{r}
+```{r total_deaths_states}
 my.rki %>% 
   filter(state %in% (top.states %>% head(8))) %>%
   filter(anydate(base::date()) - date <= 12) %>% 
@@ -355,7 +350,7 @@ my.rki %>%
 
 Showing only 6 districs most affected
 
-```{r}
+```{r total_cases_districts}
 my.rki %>% 
   filter(district %in% (top.districts %>% head(8))) %>%
   filter(anydate(base::date()) - date <= 12) %>% 
@@ -381,7 +376,7 @@ my.rki %>%
 
 Showing only 6 districs most affected
 
-```{r}
+```{r total_deaths_districts}
 my.rki %>% 
   filter(district %in% (top.districts %>% head(8))) %>%
   filter(anydate(base::date()) - date <= 12) %>% 
