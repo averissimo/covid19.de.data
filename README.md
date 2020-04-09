@@ -15,16 +15,21 @@ daily.
 Source code available at
 [averissimo/covid19-rki\_de-data](https://github.com/averissimo/covid19.de.data).
 
-**Other covid-19
-    related:**
+**Other covid-19 confirmed/deaths
+    analysis**
 
   - [World](https://averissimo.github.io/covid19-analysis/)
   - [Germany](https://averissimo.github.io/covid19-analysis/germany.html)
     *(by state)*
   - [Italy](https://averissimo.github.io/covid19-analysis/italy.html)
     *(by region)*
-  - [Bavaria](https://averissimo.github.io/covid19-analysis/bayer.html)
-    *(Germany)*
+  - [Spain](https://averissimo.github.io/covid19-analysis/spain.html)
+    *(by region)*
+
+**Age group analysis**
+
+  - [Germany](https://averissimo.github.io/covid19.de.data/) *(by state
+    and district)*
 
 ## Install / Usage
 
