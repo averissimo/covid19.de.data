@@ -1,6 +1,6 @@
-on: 
+on:
   schedule:
-    - cron:  '13 7/1 * * *'
+    - cron: '50 7/1 * * *'
   push:
     paths:
     - 'vignettes/index.Rmd'
