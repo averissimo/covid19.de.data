@@ -128,9 +128,7 @@ last.date.string <- 'Latest data from {my.rki %>% pull(date) %>% max}' %>% glue
 
 ### Cases by age groups in Germany {.tabset .tabset-fade .tabset-pills}
 
-#### Cases in Germany
-
-```{r}
+```{r, fig.width=4.5, fig.height=4}
 my.rki %>% 
   mutate(state = 'Germany') %>% 
   select(-district, -id.district, -id.state, -date) %>% 
@@ -138,10 +136,7 @@ my.rki %>%
   summarise(cases = sum(cases), deaths = sum(deaths)) %>% 
 age.plot.state('cases', c(), 'Cases in Germany', FALSE, '')
 ```
-
-#### Deaths in Germany
-
-```{r}
+```{r, fig.width=4.5, fig.height=4}
 my.rki %>% 
   mutate(state = 'Germany') %>% 
   select(-district, -id.district, -id.state, -date) %>% 
@@ -177,6 +172,9 @@ for (ix.aux in seq_along(age.ix)) {
   
   cat('#### {ix}' %>% glue)
   
+  cat('\n')
+  cat('\n')
+  cat('\n')
   
   print(
     age.by.day %>% 
@@ -188,7 +186,7 @@ for (ix.aux in seq_along(age.ix)) {
       scale_y_discrete(limits = age.by.day$age.group %>% unique %>% sort) + 
       scale_fill_viridis_d(end = .8) + 
       labs(title = "Confirmed cases from {ix}" %>% glue,
-           y = 'Age group',
+           y = '',
            x = 'Confirmed Cases') +
       theme_minimal() + 
       theme(legend.position = 'bottom')
@@ -204,12 +202,14 @@ for (ix.aux in seq_along(age.ix)) {
       scale_y_discrete(limits = age.by.day$age.group %>% unique %>% sort) + 
       scale_fill_viridis_d(end = .8) + 
       labs(title = "Deaths from {ix}" %>% glue,
-           y = 'Age group',
+           y = '',
            x = 'Deaths') +
       theme_minimal() + 
       theme(legend.position = 'bottom')
   )
     
+  cat('\n')
+  cat('\n')
   cat('\n')
   cat('\n')
 }
