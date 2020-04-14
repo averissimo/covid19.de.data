@@ -126,6 +126,92 @@ last.date.string <- 'Latest data from {my.rki %>% pull(date) %>% max}' %>% glue
 
 ## Data visualization
 
+### Cases by age groups in Germany {.tabset .tabset-fade .tabset-pills}
+
+#### Cases in Germany
+
+```{r}
+my.rki %>% 
+  mutate(state = 'Germany') %>% 
+  select(-district, -id.district, -id.state, -date) %>% 
+  group_by(state, age.group, gender) %>% 
+  summarise(cases = sum(cases), deaths = sum(deaths)) %>% 
+age.plot.state('cases', c(), 'Cases in Germany', FALSE, '')
+```
+
+#### Deaths in Germany
+
+```{r}
+my.rki %>% 
+  mutate(state = 'Germany') %>% 
+  select(-district, -id.district, -id.state, -date) %>% 
+  group_by(state, age.group, gender) %>% 
+  summarise(cases = sum(cases), deaths = sum(deaths)) %>% 
+age.plot.state('deaths', c(), 'Deaths in Germany', FALSE, '')
+```
+
+### Cases by day {.tabset .tabset-fade .tabset-pills}
+
+```{r, results='asis', fig.width=4.5, fig.height=4}
+age.by.day <- my.rki %>% 
+  mutate(state = 'Germany') %>% 
+  select(-district, -id.district, -id.state) %>% 
+  group_by(state, age.group, gender, date) %>% 
+  filter(gender != 'unbekannt') %>% 
+  summarise(cases = sum(cases), deaths = sum(deaths)) %>% 
+  mutate(cases = if_else(gender == 'M', cases * -1, cases),
+         deaths = if_else(gender == 'M', deaths * -1, deaths))
+
+age.ix <- age.by.day$date %>% unique %>% sort
+
+confirmed.max <- age.by.day %>% pull(cases) %>% max
+death.max <- age.by.day %>% pull(deaths) %>% max
+
+for (ix.aux in seq_along(age.ix)) {
+  ix <- age.ix[ix.aux]
+  cat('\n')
+  cat('\n')
+  
+  cat('#### {ix}' %>% glue)
+  
+  
+  print(
+    age.by.day %>% 
+      filter(date == ix) %>%
+      ggplot(aes(x = cases, y = age.group, fill = gender)) +
+      geom_bar(stat = 'identity') + 
+      expand_limits(x =c(-1 * confirmed.max, confirmed.max)) +
+      scale_x_continuous('', labels = function(ix) { return(abs(ix)) }) +
+      scale_y_discrete(limits = age.by.day$age.group %>% unique %>% sort) + 
+      scale_fill_viridis_d(end = .8) + 
+      labs(title = "Confirmed cases from {ix}" %>% glue,
+           y = 'Age group',
+           x = 'Confirmed Cases') +
+      theme_minimal() + 
+      theme(legend.position = 'bottom')
+  )
+  
+  print(
+    age.by.day %>% 
+      filter(date == ix) %>%
+      ggplot(aes(x = deaths, y = age.group, fill = gender)) +
+      geom_bar(stat = 'identity') + 
+      expand_limits(x =c(-1 * death.max, death.max)) +
+      scale_x_continuous('', labels = function(ix) { return(abs(ix)) }) +
+      scale_y_discrete(limits = age.by.day$age.group %>% unique %>% sort) + 
+      scale_fill_viridis_d(end = .8) + 
+      labs(title = "Deaths from {ix}" %>% glue,
+           y = 'Age group',
+           x = 'Deaths') +
+      theme_minimal() + 
+      theme(legend.position = 'bottom')
+  )
+    
+  cat('\n')
+  cat('\n')
+}
+```
+
 ### Cases by age groups {.tabset .tabset-fade .tabset-pills}
 
 #### Cases in states

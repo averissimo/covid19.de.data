@@ -6,7 +6,7 @@
 #' @param title title of plot
 #'
 #' @return ggplot
-age.plot.state <- function(dat, var, filter.state, title) {
+age.plot.state <- function(dat, var, filter.state, title, legend.center = TRUE, subtitle = 'Showing only 8 most afected states') {
   pyramid <- dat %>%
     filter(length(filter.state) == 0 | state %in% filter.state) %>%
     filter(gender %in% c('M', 'W')) %>%
@@ -16,7 +16,7 @@ age.plot.state <- function(dat, var, filter.state, title) {
     mutate(cases = if_else(gender == 'M', -1 * cases, cases),
            deaths = if_else(gender == 'M', -1 * deaths, deaths))
 
-  ggplot(pyramid, aes_(x = ~age.group, y = as.name(var), fill = ~gender)) +   # Fill column
+  my.plot <- ggplot(pyramid, aes_(x = ~age.group, y = as.name(var), fill = ~gender)) +   # Fill column
     geom_bar(stat = "identity", width = .6) +   # draw the bars
     scale_y_continuous(labels = abs) +
     coord_flip() +  # Flip axes
@@ -24,12 +24,16 @@ age.plot.state <- function(dat, var, filter.state, title) {
     theme(plot.title = element_text(hjust = .5),
           axis.ticks = element_blank()) +   # Centre plot title
     scale_fill_viridis_d('Gender', end = .7) + # Color palette
-    theme(legend.position = c(0.5,.5)) +
     labs(title= title,
          x = 'Age Groups',
          y = title,
-         subtitle = 'Showing only 8 most afected states') +
+         subtitle = subtitle) +
     facet_wrap(~state, ncol = 2)
+
+  if (legend.center) {
+    my.plot <- my.plot + theme(legend.position = c(0.5,.5))
+  }
+  return(my.plot)
 }
 
 #' Plot age distribution of districts
