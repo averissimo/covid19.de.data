@@ -1,12 +1,12 @@
 ---
 title: "Germany data on district level"
 output: 
-  github_document:
-    dev: svg
   html_document:
     toc: true
     dev: svg
     self_contained: false
+  github_document:
+    dev: svg
 ---
 
 ```{r, eval=FALSE, include=FALSE}
@@ -162,7 +162,7 @@ age.by.day <- my.rki %>%
   mutate(cases = if_else(gender == 'M', cases * -1, cases),
          deaths = if_else(gender == 'M', deaths * -1, deaths))
 
-age.ix <- age.by.day$date %>% unique %>% sort
+age.ix <- age.by.day$date %>% unique %>% sort(decreasing = TRUE)
 
 confirmed.max <- age.by.day %>% pull(cases) %>% max
 death.max <- age.by.day %>% pull(deaths) %>% max
