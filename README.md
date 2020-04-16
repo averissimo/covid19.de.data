@@ -69,15 +69,15 @@ once a day.
 *(showing only 3 latest
 days)*
 
-#### 2020-04-14
+#### 2020-04-15
 
 ![](README_files/figure-gfm/unnamed-chunk-9-1.svg)<!-- -->![](README_files/figure-gfm/unnamed-chunk-9-2.svg)<!-- -->
 
-#### 2020-04-13
+#### 2020-04-14
 
 ![](README_files/figure-gfm/unnamed-chunk-9-3.svg)<!-- -->![](README_files/figure-gfm/unnamed-chunk-9-4.svg)<!-- -->
 
-#### 2020-04-12
+#### 2020-04-13
 
 ![](README_files/figure-gfm/unnamed-chunk-9-5.svg)<!-- -->![](README_files/figure-gfm/unnamed-chunk-9-6.svg)<!-- -->
 
