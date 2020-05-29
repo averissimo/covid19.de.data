@@ -55,19 +55,27 @@ covid19.de.data::update_dataset.no.age()
 ```
 
 Note that, as of now, the data is updated by the Robert Koch Institute
-once a day.
+once a
+    day.
 
 ## Data visualization
 
 ### Cases by age groups in Germany
 
+    ## `summarise()` regrouping output by 'state', 'age.group' (override with `.groups` argument)
+
 ![](README_files/figure-gfm/unnamed-chunk-7-1.svg)<!-- -->
+
+    ## `summarise()` regrouping output by 'state', 'age.group' (override with `.groups` argument)
+
 ![](README_files/figure-gfm/unnamed-chunk-8-1.svg)<!-- -->
 
 ### Cases by day
 
 *(showing only 3 latest
-days)*
+    days)*
+
+    ## `summarise()` regrouping output by 'state', 'age.group', 'gender' (override with `.groups` argument)
 
 #### 2020-05-28
 
@@ -103,6 +111,8 @@ days)*
 
 #### Confirmed cases
 
+    ## `summarise()` ungrouping output (override with `.groups` argument)
+
 ![](README_files/figure-gfm/bar_plot_cases_state-1.svg)<!-- -->
 
 #### Deaths
@@ -113,13 +123,17 @@ days)*
 
 #### Confirmed cases
 
-*Showing only 50*
+*Showing only
+    50*
+
+    ## `summarise()` ungrouping output (override with `.groups` argument)
 
 ![](README_files/figure-gfm/bar_plot_cases_district-1.svg)<!-- -->
 
 #### Deaths
 
-*Showing only 50*
+*Showing only
+    50*
 
 ![](README_files/figure-gfm/bar_plot_death_district-1.svg)<!-- -->
 
@@ -127,17 +141,25 @@ days)*
 
 #### New Cases in states
 
+    ## `summarise()` regrouping output by 'state' (override with `.groups` argument)
+
 ![](README_files/figure-gfm/new_cases_states-1.svg)<!-- -->
 
 #### New Deaths in states
+
+    ## `summarise()` regrouping output by 'state' (override with `.groups` argument)
 
 ![](README_files/figure-gfm/new_deaths_states-1.svg)<!-- -->
 
 #### New cases in districts
 
+    ## `summarise()` regrouping output by 'district' (override with `.groups` argument)
+
 ![](README_files/figure-gfm/new_cases_districts-1.svg)<!-- -->
 
 #### New deaths in districts
+
+    ## `summarise()` regrouping output by 'district' (override with `.groups` argument)
 
 ![](README_files/figure-gfm/new_deaths_districts-1.svg)<!-- -->
 
@@ -145,22 +167,33 @@ days)*
 
 #### Total cases in states
 
+    ## `summarise()` regrouping output by 'state' (override with `.groups` argument)
+
 ![](README_files/figure-gfm/total_cases_states-1.svg)<!-- -->
 
 #### Total deaths in states
 
-Showing only 6 states most affected
+Showing only 6 states most
+    affected
+
+    ## `summarise()` regrouping output by 'state' (override with `.groups` argument)
 
 ![](README_files/figure-gfm/total_deaths_states-1.svg)<!-- -->
 
 #### Total cases in districs
 
-Showing only 6 districs most affected
+Showing only 6 districs most
+    affected
+
+    ## `summarise()` regrouping output by 'district' (override with `.groups` argument)
 
 ![](README_files/figure-gfm/total_cases_districts-1.svg)<!-- -->
 
 #### Total deaths in districs
 
-Showing only 6 districs most affected
+Showing only 6 districs most
+    affected
+
+    ## `summarise()` regrouping output by 'district' (override with `.groups` argument)
 
 ![](README_files/figure-gfm/total_deaths_districts-1.svg)<!-- -->
