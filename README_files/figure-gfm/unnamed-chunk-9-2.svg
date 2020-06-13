@@ -216,6 +216,7 @@
 <g clip-path="url(#clip14)" clip-rule="nonzero">
 <path style="fill:none;stroke-width:1.066978;stroke-linecap:butt;stroke-linejoin:round;stroke:rgb(92.156863%,92.156863%,92.156863%);stroke-opacity:1;stroke-miterlimit:10;" d="M 263.144531 214.652344 L 263.144531 23.957031 "/>
 </g>
+<path style=" stroke:none;fill-rule:nonzero;fill:rgb(26.666667%,0.392157%,32.941176%);fill-opacity:1;" d="M 191.628906 104.738281 L 192.335938 104.738281 L 192.335938 80.902344 L 191.628906 80.902344 Z M 191.628906 104.738281 "/>
 <g style="fill:rgb(30.196078%,30.196078%,30.196078%);fill-opacity:1;">
   <use xlink:href="#glyph0-1" x="20.21875" y="201.364258"/>
   <use xlink:href="#glyph0-2" x="26.21875" y="201.364258"/>
@@ -342,7 +343,7 @@
   <use xlink:href="#glyph2-15" x="181.152344" y="14.632812"/>
   <use xlink:href="#glyph2-14" x="188.152344" y="14.632812"/>
   <use xlink:href="#glyph2-16" x="192.152344" y="14.632812"/>
-  <use xlink:href="#glyph2-16" x="199.152344" y="14.632812"/>
+  <use xlink:href="#glyph2-12" x="199.152344" y="14.632812"/>
 </g>
 </g>
 </svg>
