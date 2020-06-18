@@ -15,8 +15,7 @@ daily.
 Source code available at
 [averissimo/covid19-rki\_de-data](https://github.com/averissimo/covid19.de.data).
 
-**Other covid-19 confirmed/deaths
-    analysis**
+**Other covid-19 confirmed/deaths analysis**
 
   - [World](https://averissimo.github.io/covid19-analysis/)
   - [Germany](https://averissimo.github.io/covid19-analysis/germany.html)
@@ -55,8 +54,7 @@ covid19.de.data::update_dataset.no.age()
 ```
 
 Note that, as of now, the data is updated by the Robert Koch Institute
-once a
-    day.
+once a day.
 
 ## Data visualization
 
@@ -72,20 +70,19 @@ once a
 
 ### Cases by day
 
-*(showing only 3 latest
-    days)*
+*(showing only 3 latest days)*
 
     ## `summarise()` regrouping output by 'state', 'age.group', 'gender' (override with `.groups` argument)
 
-#### 2020-06-16
+#### 2020-06-17
 
 ![](README_files/figure-gfm/unnamed-chunk-9-1.svg)<!-- -->![](README_files/figure-gfm/unnamed-chunk-9-2.svg)<!-- -->
 
-#### 2020-06-15
+#### 2020-06-16
 
 ![](README_files/figure-gfm/unnamed-chunk-9-3.svg)<!-- -->![](README_files/figure-gfm/unnamed-chunk-9-4.svg)<!-- -->
 
-#### 2020-06-14
+#### 2020-06-15
 
 ![](README_files/figure-gfm/unnamed-chunk-9-5.svg)<!-- -->![](README_files/figure-gfm/unnamed-chunk-9-6.svg)<!-- -->
 
@@ -123,8 +120,7 @@ once a
 
 #### Confirmed cases
 
-*Showing only
-    50*
+*Showing only 50*
 
     ## `summarise()` ungrouping output (override with `.groups` argument)
 
@@ -132,8 +128,7 @@ once a
 
 #### Deaths
 
-*Showing only
-    50*
+*Showing only 50*
 
 ![](README_files/figure-gfm/bar_plot_death_district-1.svg)<!-- -->
 
@@ -173,8 +168,7 @@ once a
 
 #### Total deaths in states
 
-Showing only 6 states most
-    affected
+Showing only 6 states most affected
 
     ## `summarise()` regrouping output by 'state' (override with `.groups` argument)
 
@@ -182,8 +176,7 @@ Showing only 6 states most
 
 #### Total cases in districs
 
-Showing only 6 districs most
-    affected
+Showing only 6 districs most affected
 
     ## `summarise()` regrouping output by 'district' (override with `.groups` argument)
 
@@ -191,8 +184,7 @@ Showing only 6 districs most
 
 #### Total deaths in districs
 
-Showing only 6 districs most
-    affected
+Showing only 6 districs most affected
 
     ## `summarise()` regrouping output by 'district' (override with `.groups` argument)
 
