@@ -74,15 +74,15 @@ once a day.
 
     ## `summarise()` regrouping output by 'state', 'age.group', 'gender' (override with `.groups` argument)
 
-#### 2020-06-22
+#### 2020-06-23
 
 ![](README_files/figure-gfm/unnamed-chunk-9-1.svg)<!-- -->![](README_files/figure-gfm/unnamed-chunk-9-2.svg)<!-- -->
 
-#### 2020-06-21
+#### 2020-06-22
 
 ![](README_files/figure-gfm/unnamed-chunk-9-3.svg)<!-- -->![](README_files/figure-gfm/unnamed-chunk-9-4.svg)<!-- -->
 
-#### 2020-06-20
+#### 2020-06-21
 
 ![](README_files/figure-gfm/unnamed-chunk-9-5.svg)<!-- -->![](README_files/figure-gfm/unnamed-chunk-9-6.svg)<!-- -->
 
