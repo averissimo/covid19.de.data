@@ -128,9 +128,6 @@
 <symbol overflow="visible" id="glyph2-16">
 <path style="stroke:none;" d="M 4.578125 0 L 4.578125 -9.359375 L 3.8125 -9.359375 C 3.40625 -7.921875 3.140625 -7.71875 1.34375 -7.5 L 1.34375 -6.671875 L 3.421875 -6.671875 L 3.421875 0 Z M 4.578125 0 "/>
 </symbol>
-<symbol overflow="visible" id="glyph2-17">
-<path style="stroke:none;" d="M 6.859375 -8.1875 L 6.859375 -9.15625 L 0.609375 -9.15625 L 0.609375 -8.015625 L 5.671875 -8.015625 C 3.796875 -5.671875 2.484375 -2.9375 1.828125 0 L 3.0625 0 C 3.578125 -3.03125 4.890625 -5.84375 6.859375 -8.1875 Z M 6.859375 -8.1875 "/>
-</symbol>
 </g>
 <clipPath id="clip1">
   <path d="M 86 23.957031 L 88 23.957031 L 88 214.648438 L 86 214.648438 Z M 86 23.957031 "/>
@@ -219,7 +216,6 @@
 <g clip-path="url(#clip14)" clip-rule="nonzero">
 <path style="fill:none;stroke-width:1.066978;stroke-linecap:butt;stroke-linejoin:round;stroke:rgb(92.156863%,92.156863%,92.156863%);stroke-opacity:1;stroke-miterlimit:10;" d="M 262.710938 214.652344 L 262.710938 23.957031 "/>
 </g>
-<path style=" stroke:none;fill-rule:nonzero;fill:rgb(47.843137%,81.960784%,31.764706%);fill-opacity:1;" d="M 192.335938 51.769531 L 193.039062 51.769531 L 193.039062 27.933594 L 192.335938 27.933594 Z M 192.335938 51.769531 "/>
 <g style="fill:rgb(30.196078%,30.196078%,30.196078%);fill-opacity:1;">
   <use xlink:href="#glyph0-1" x="20.21875" y="201.364258"/>
   <use xlink:href="#glyph0-2" x="26.21875" y="201.364258"/>
@@ -346,7 +342,7 @@
   <use xlink:href="#glyph2-15" x="181.152344" y="14.632812"/>
   <use xlink:href="#glyph2-14" x="188.152344" y="14.632812"/>
   <use xlink:href="#glyph2-16" x="192.152344" y="14.632812"/>
-  <use xlink:href="#glyph2-17" x="199.152344" y="14.632812"/>
+  <use xlink:href="#glyph2-15" x="199.152344" y="14.632812"/>
 </g>
 </g>
 </svg>
