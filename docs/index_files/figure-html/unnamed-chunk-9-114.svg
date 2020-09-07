@@ -199,7 +199,7 @@
   <path d="M 261 23.957031 L 263 23.957031 L 263 214.648438 L 261 214.648438 Z M 261 23.957031 "/>
 </clipPath>
 </defs>
-<g id="surface2946">
+<g id="surface2956">
 <rect x="0" y="0" width="324" height="288" style="fill:rgb(100%,100%,100%);fill-opacity:1;stroke:none;"/>
 <g clip-path="url(#clip1)" clip-rule="nonzero">
 <path style="fill:none;stroke-width:0.533489;stroke-linecap:butt;stroke-linejoin:round;stroke:rgb(92.156863%,92.156863%,92.156863%);stroke-opacity:1;stroke-miterlimit:10;" d="M 88.050781 214.652344 L 88.050781 23.957031 "/>
@@ -380,7 +380,7 @@
   <use xlink:href="#glyph3-15" x="181.152344" y="14.632812"/>
   <use xlink:href="#glyph3-14" x="188.152344" y="14.632812"/>
   <use xlink:href="#glyph3-16" x="192.152344" y="14.632812"/>
-  <use xlink:href="#glyph3-16" x="199.152344" y="14.632812"/>
+  <use xlink:href="#glyph3-12" x="199.152344" y="14.632812"/>
 </g>
 </g>
 </svg>
