@@ -152,6 +152,9 @@
 <symbol overflow="visible" id="glyph3-16">
 <path style="stroke:none;" d="M 3.75 -3.171875 L 3.75 -4.125 L 0.609375 -4.125 L 0.609375 -3.171875 Z M 3.75 -3.171875 "/>
 </symbol>
+<symbol overflow="visible" id="glyph3-17">
+<path style="stroke:none;" d="M 6.859375 -2.25 L 6.859375 -3.28125 L 5.484375 -3.28125 L 5.484375 -9.359375 L 4.625 -9.359375 L 0.375 -3.46875 L 0.375 -2.25 L 4.3125 -2.25 L 4.3125 0 L 5.484375 0 L 5.484375 -2.25 Z M 4.3125 -3.28125 L 1.390625 -3.28125 L 4.3125 -7.375 Z M 4.3125 -3.28125 "/>
+</symbol>
 </g>
 <clipPath id="clip1">
   <path d="M 77 23.957031 L 78 23.957031 L 78 214.648438 L 77 214.648438 Z M 77 23.957031 "/>
@@ -196,7 +199,7 @@
   <path d="M 268 23.957031 L 270 23.957031 L 270 214.648438 L 268 214.648438 Z M 268 23.957031 "/>
 </clipPath>
 </defs>
-<g id="surface4821">
+<g id="surface4831">
 <rect x="0" y="0" width="324" height="288" style="fill:rgb(100%,100%,100%);fill-opacity:1;stroke:none;"/>
 <g clip-path="url(#clip1)" clip-rule="nonzero">
 <path style="fill:none;stroke-width:0.533489;stroke-linecap:butt;stroke-linejoin:round;stroke:rgb(92.156863%,92.156863%,92.156863%);stroke-opacity:1;stroke-miterlimit:10;" d="M 77.390625 214.652344 L 77.390625 23.957031 "/>
@@ -384,7 +387,7 @@
   <use xlink:href="#glyph3-14" x="238.152344" y="14.632812"/>
   <use xlink:href="#glyph3-16" x="245.152344" y="14.632812"/>
   <use xlink:href="#glyph3-14" x="249.152344" y="14.632812"/>
-  <use xlink:href="#glyph3-15" x="256.152344" y="14.632812"/>
+  <use xlink:href="#glyph3-17" x="256.152344" y="14.632812"/>
 </g>
 </g>
 </svg>
